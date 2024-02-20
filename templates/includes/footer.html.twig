@@ -1,0 +1,49 @@
+<!-- ======= Footer ======= -->
+<div class="container-fluid">
+	<footer class="site-footer">
+		<div id='footer' class='row align-items-center justify-content-between p-3'>
+			<div class="col-md-3 text-center">
+				<img class='img-fluid' src="{{asset('assets/images/facebook.svg')}}" alt="Logo" width="30px">
+				<img class='img-fluid' src="{{asset('assets/images/instagram.svg')}}" alt="Logo" width="30px">
+				<img class='img-fluid' src="{{asset('assets/images/snap.svg')}}" alt="Logo" width="30px">
+			</div>
+			<div class="col-md-3 text-center">
+				<a href="{{path('app_mensions_legales')}}"><strong>CGV</strong>
+				|
+				<strong>Mentions légales</strong></a>
+				<br>
+				Copyright Bob&Tintin | DWWM@2024</div>
+			<div class="col-md-3 text-center pr-3">
+				<a id="backToTop" href="#">
+					<img id='logonav' src="{{asset('assets/images/up.png')}}" alt="Logo" width="50px">
+				</a>
+			</div>
+
+		</div>
+
+	</footer>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var backToTopLink = document.getElementById('backToTop');
+        backToTopLink.addEventListener('click', function(e) {
+            e.preventDefault(); 
+            scrollToTop();
+        });
+
+        function scrollToTop() {
+            var scrollDuration = 300; // Durée de l'animation en millisecondes
+            var scrollStep = -window.scrollY / (scrollDuration / 10); // Pas de scroll
+
+            var scrollInterval = setInterval(function() {
+                if (window.scrollY !== 0) {
+                    window.scrollBy(0, scrollStep); 
+                } else {
+                    clearInterval(scrollInterval); 
+                }
+            },10);
+        }
+    });
+</script>
+<!-- End Footer -->

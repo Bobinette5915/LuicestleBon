@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+<div id="concept">
+    <h1 class='text-center'>Mon compte</h1>
+    <p class='text-center' style='font-weight: bold; font-size: xx-large;'>Bienvenue dans votre compte.<br>
+    C'est dans cet espace que vous pouvez gérer vos informations personnelles.</p>
+    <hr>
+    {% if is_granted('ROLE_ADMIN' )%}
+    <p class='text-center m-4'>
+    <button class="btn btn-info col-md-3"><a href="{{ path('admin') }}" class='text-decoration-none '>Vous êtes ADMINISTRATEUR, accéder au backoffice.</a></button></p>
+    <br>
+    {% endif %}
+
+    <div class="row text-center p-3">
+
+        <div class="col-md-4">
+            <div class="account-item text-center rounded-custom bg-light bg-opacity-80">
+                <a href="{{path('app_changementmdp')}}"><img src="{{asset('assets/images/mdp.png')}}" alt="Modifier votre mot de passe"><br>
+                Modifier votre mot de passe.</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="account-item text-center rounded-custom bg-light bg-opacity-80">
+                <a href="{{path('app_adresse')}}"><img src="{{asset('assets/images/emplacement.png')}}" alt="Gérer vos adresses"><br>
+                Gérer vos adresses.</a>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="account-item text-center rounded-custom bg-light bg-opacity-80">
+                <a href=""><img src="{{asset('assets/images/boite.png')}}" alt="Mes commandes"><br>
+                Mes commandes.</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

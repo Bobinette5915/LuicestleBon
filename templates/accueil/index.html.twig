@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Les Brunchs de Bob et Tintin{% endblock %}
+
+{% block body %}
+<div id="concept" class="container-fluid p-3">
+		<div class="row text-center pt-5">
+			<h1>Les Brunchs de Bob et Tintin</h1>
+		</div>
+		<div id="conceptExplain" class="col-md-8 mx-auto mb-4 p-5">
+			Se faire livrer un brunch à domicile offre une expérience conviviale et pratique, avec une multitude d'avantages. Tout d'abord, cela permet de savourer un délicieux repas sans avoir à se déplacer, ce qui est particulièrement apprécié le matin lorsque l'on souhaite éviter la foule ou quand on est pressé. Ensuite, la livraison de brunch offre une grande variété de choix, des classiques comme les œufs bénédictine et les pancakes aux options plus exotiques ou spécialisées, ce qui ravit les papilles de chacun, peu importe ses préférences alimentaires.
+			<br><br>
+
+			De plus, cela permet de profiter de moments de détente en famille ou entre amis sans se soucier de la préparation et du nettoyage. C'est une occasion parfaite pour partager des conversations agréables tout en dégustant un repas de qualité. En outre, faire livrer un brunch à domicile est également une excellente option lorsqu'on organise des événements spéciaux tels que des anniversaires, des fêtes ou des réunions, car cela simplifie l'organisation tout en offrant une expérience gastronomique mémorable.
+			<br>
+
+			<li>Un Grand choix de formules disponibles ( à la francaise, à l'anglaise et meme à l'americaine )</li> 
+			<li>Un secteur de livraison assez bien desservi</li>
+			<li>Des produits locaux, frais, Made in France et de qualité premium</li>
+			<br>
+
+			Enfin, avec la montée en popularité des services de livraison, il est désormais possible de commander un brunch à tout moment de la journée, ce qui en fait une option flexible et accessible pour satisfaire les envies culinaires à tout moment. En résumé, se faire livrer un brunch à domicile combine commodité, choix variés, convivialité et plaisir gastronomique, ce qui en fait une option attrayante pour de nombreux amateurs de brunch
+		</div>
+	</div>
+	<br>
+	<hr>
+	<br>
+	<div id='NosBoxs' class="text-center col-md-2 mx-auto p-3 rounded">
+        Nos Box's
+    </div>
+
+    <div class="container-fluid">
+        <div id="fullDisplay" class="col-md-10 mx-auto">
+            <div class="container1 text-center mx-auto">
+                <div class="slide">
+                    {% for Box in boxs %}
+                        <div class="item" style="background-image: url(assets/images/{{Box.illustration}});">
+                            <div class="content">
+                                <div class="name">{{Box.nom}}</div>
+                                <div class="des">{{Box.description}}</div>
+                                <a href="}" class="btn btn-primary mb-3">Personnaliser cette Box</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="button">
+                    <button class="prev"> <- </button>
+                    <button class="next"> -> </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="phoneDisplay" class="col-md-12">
+            <div class="row justify-content-center">
+                {% for Box in boxAleatoires %}
+                    <div class="col-md-3 col-xs-12">
+                        <img class='img-fluid mb-4 rounded-circle' src="assets/images/{{Box.illustration}}" alt="illustration" width="100px"><br>
+                        <h4>{{Box.nom}}</h4>
+                        <p>{{Box.description}}</p>
+                        <a href="" class="btn btn-primary mb-3">Personnaliser cette Box</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <p class="text-end p-4">
+        <a href="">voir plus -></a>
+    </p>
+
+    <br>
+    <hr>
+    <br>
+
+    <div id='NosParte' class="text-center col-md-2 mx-auto p-3 rounded">
+        Nos Partenaires
+    </div>
+
+    <div class="container-fluid">
+        <div id='parte' class="col-md-12">
+            <div class="row justify-content-center text-center">
+                {% for Partenaire in partenairesAleatoires %}
+                    <div class="col-md-3 col-xs-12">
+                        <a href="{{ path('app_partenaires') }}">
+                            <img class='img-fluid mb-4 rounded-circle' src="assets/images/{{Partenaire.illustration}}" alt="Logo" heigth="100px" width="100px"><br>
+                            <h4>{{Partenaire.entreprise}}</h4>
+                            <p>{{Partenaire.description}}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <p class="text-end p-4">
+        <a href="">voir plus -></a>
+    </p>
+
+    <script>
+        const $next = document.querySelector('.next');
+const $prev = document.querySelector('.prev');
+
+$next.addEventListener('click', () => {
+const items = document.querySelectorAll('.item');
+document.querySelector('.slide').appendChild(items[0]);
+},);
+
+
+$prev.addEventListener('click', () => {
+const items = document.querySelectorAll('.item');
+document.querySelector('.slide').prepend(items[items.length - 1]);
+},);
+    </script>
+{% endblock %}

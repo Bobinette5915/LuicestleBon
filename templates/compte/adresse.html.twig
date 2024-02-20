@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes adresses{% endblock %}
+
+{% block body %}
+<div id="concept">
+    <h1 class='text-center'>Mes adresses</h1>
+    <p class='text-center' style='font-weight: bold; font-size: xx-large;'>Bienvenue dans votre compte {{ app.user.prenom }}.<br>
+    C'est dans cet espace que vous pouvez gérer vos adresses.</p>
+    <hr>
+    
+    <div class="row text-center p-3">
+        <a href="{{ path('app_ajouter_adresse') }}"><button class='btn btn-info'>Ajouter une adresse</button></a>
+    </div>
+    {% if app.user.adresses|length == 0 %}
+        <p class="text-center mt-5">Vous n'avez pas encore ajouté d'adresses dans votre compte client. Pour en ajouter une, veuillez   <a href="">cliquer ici</a>.
+        </p>  
+    {% else %}
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row mx-n3">
+                    {% for adresse in app.user.adresses %}
+                        <div class="col-md-4 mb-4 px-3 text-center">
+                            <div class="rounded-custom bg-light bg-opacity-75 p-3">
+                                <img src="{{ asset('assets/images/accueil.png') }}" alt="adresse"><br>
+                                <h3 class="card-title">{{ adresse.Nomadresse }}</h3>
+                                <p class="card-text">
+                                    {{ adresse.adresse }}<br>
+                                    {{ adresse.postal }} - {{ adresse.Ville }}<br>
+                                    {{ adresse.Pays }}
+                                </p>
+                                <div class='text-center'><a href="{{ path('app_modifier_adresse', {'id': adresse.id}) }}">Modifier</a> | <a href="{{ path('app_supprimer_adresse', {'id': adresse.id}) }}">Supprimer</a></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+</div>          
+{% endblock %}
