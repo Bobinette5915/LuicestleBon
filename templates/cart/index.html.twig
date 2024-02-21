@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!{% endblock %}
+
+{% block body %}
+
+<div id="concept" class="container-fluid p-3 text-center">
+<div class="row text-center pt-5">
+			<h1>Mon Panier</h1>
+		</div>
+
+
+	
+
+	{% if cart|length >0 %}
+
+	<table class="table  mb-5">
+		<thead>
+			<tr>
+				<th scope="col">Image</th>
+				<th scope="col">Box</th>
+				<th scope="col">Prix de base</th>
+				<th scope="col">Ingredients suplementaires</th>
+				<th scope="col">Prix Total</th>
+				<th scope="col"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% set total = null %}
+			{% set QuantityTotal = null %}
+			{% for product in cart %}
+
+				<tr>
+					<td class="align-middle"><img src="/assets/images/{{product.product.illustration}}" alt="{{product.product.nom}}" height='75px'></td>
+					<td class="align-middle" scope="row">
+						<strong>{{product.product.nom}}
+						</strong><br>
+						
+					</td>
+					<td class="align-middle">{{(product.product.prix / 100) |number_format('2')}}
+						€</td>
+					<td>articles supplementaires</td>
+					<td class="align-middle">
+                    {# {{(product.product.prix * product.quantity / 100) |number_format('2')}} #}
+                    prix de la Box + (1€ x nombre de produits suplementaire)
+						€</td>
+					<td class="align-middle">
+						<a href="{{ path('delete_to_cart',{'id' : product.product.id}) }}">
+							<img src="{{ asset('assets/images/poubelle.svg') }}" height="20px" alt="supprimer mon produit">
+						</a>
+					</td>
+				</tr>
+				{% set QuantityTotal = QuantityTotal + product.quantity %}
+				{% set total = total + (product.product.prix * product.quantity) %}
+			{% endfor %}
+		</tbody>
+	</table>
+
+	<div class="text-end mb-5 mr-3">
+		<b>Nombre de boxs :
+		</b>
+		{# {{QuantityTotal }} #}
+		<br>
+		<b>Total de mon Panier :
+		</b>
+		{# {{(total / 100) |number_format('2')}} #}
+		€<br>
+		<div class="d-grid mt-2">
+			{# <a class="btn btn-success btn-lg btn-block" href="{{ path('app_order')}}">Valider le panier</a> #}
+		</div>
+	</div>
+</div>
+	{% else %}
+    <hr>
+    <p>Votre panier est vide</p>
+{% endif %}
+{% endblock %}

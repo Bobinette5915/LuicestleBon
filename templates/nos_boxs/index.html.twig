@@ -17,9 +17,10 @@
 						<img class='img-fluid m-4 rounded-circle' src="assets/images/{{Box.illustration}}" alt="Photo de {{Box.nom}}" width="200px">
 						<br>
 						<h3 class="card-title">{{Box.nom}}</h3>
+						<small>{{Box.soustitre}}</small>
 						<br>
 						<p class="card-text">{{Box.description}}</p>
-						<a href="" class="btn btn-primary mb-3">Personnaliser cette Box</a>
+						<a href="{{ path('app_ma_box', {'slug' : Box.slug})}} " class="btn btn-primary mb-3">Personnaliser cette Box</a>
 					</div>
 
 				{% endfor %}

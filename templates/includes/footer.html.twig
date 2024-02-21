@@ -24,26 +24,28 @@
 	</footer>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var backToTopLink = document.getElementById('backToTop');
-        backToTopLink.addEventListener('click', function(e) {
-            e.preventDefault(); 
-            scrollToTop();
-        });
 
-        function scrollToTop() {
-            var scrollDuration = 300; // Durée de l'animation en millisecondes
-            var scrollStep = -window.scrollY / (scrollDuration / 10); // Pas de scroll
+{# test pour remoter en haut de la page #}
+// <script>
+//     document.addEventListener('DOMContentLoaded', function() {
+//         var backToTopLink = document.getElementById('backToTop');
+//         backToTopLink.addEventListener('click', function(e) {
+//             e.preventDefault(); 
+//             scrollToTop();
+//         });
 
-            var scrollInterval = setInterval(function() {
-                if (window.scrollY !== 0) {
-                    window.scrollBy(0, scrollStep); 
-                } else {
-                    clearInterval(scrollInterval); 
-                }
-            },10);
-        }
-    });
-</script>
+//         function scrollToTop() {
+//             var scrollDuration = 300; // Durée de l'animation en millisecondes
+//             var scrollStep = -window.scrollY / (scrollDuration / 10); // Pas de scroll
+
+//             var scrollInterval = setInterval(function() {
+//                 if (window.scrollY !== 0) {
+//                     window.scrollBy(0, scrollStep); 
+//                 } else {
+//                     clearInterval(scrollInterval); 
+//                 }
+//             },10);
+//         }
+//     });
+// </script>
 <!-- End Footer -->
