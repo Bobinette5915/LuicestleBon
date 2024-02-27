@@ -3,10 +3,12 @@
 namespace App\Form;
 
 use App\Entity\Adresse;
+use App\Entity\VillesLivrables;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -33,18 +35,20 @@ class AjoutadresseType extends AbstractType
             ->add('Adresse', TextType::class,[
                 'label' => "Votre adresse :",
             ])
-            ->add('Postal', TextType::class,[
-                'label' => "Code postal :",
-            ])
-            ->add('Ville', TextType::class,[
-                'label' => "Ville :",
+            ->add('Ville', EntityType::class, [ // Utilisation de EntityType
+                'class' => VillesLivrables::class, // Entité à utiliser
+                'label' => 'Ville :', // Label du champ
             ])
             ->add('Pays', CountryType::class,[
                 'label' => "Pays :",
                 'preferred_choices' => ['FR'], 
             ])
-            ->add('Tel', TelType::class,[
+            ->add('Tel', NumberType::class,[
                 'label' => "N° de téléphone :",
+                'attr' => [
+                    'pattern' => '[0-9]*', // Accepte uniquement les chiffres
+                    'title' => "Veuillez saisir uniquement des chiffres" // Message affiché en cas d'erreur
+                ]
             ])
             ->add('submit', SubmitType::class,[
                 'label'=> 'Valider',

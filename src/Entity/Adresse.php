@@ -32,14 +32,17 @@ class Adresse
     #[ORM\Column(length: 255)]
     private ?string $Ville = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $Postal = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Pays = null;
 
     #[ORM\Column(length: 255)]
     private ?string $Tel = null;
+
+    public function __toString()
+    {
+        return $this->getNomAdresse().' '.$this->getAdresse().' '.$this->getVille();
+    }
 
     public function getId(): ?int
     {
@@ -118,17 +121,6 @@ class Adresse
         return $this;
     }
 
-    public function getPostal(): ?string
-    {
-        return $this->Postal;
-    }
-
-    public function setPostal(string $Postal): static
-    {
-        $this->Postal = $Postal;
-
-        return $this;
-    }
 
     public function getPays(): ?string
     {

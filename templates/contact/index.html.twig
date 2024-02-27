@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous contacter
+{% endblock %}
+
+{% block body %}
+
+	<div id="concept" class="container-fluid p-3">
+		<div class="row text-center pt-5">
+
+			<h1>Nous Contacter</h1>
+			<p>N'hesitez pas à prendre cotact avec nos equipe, nous vous répondrons dans les plus brefs delais</p>
+		</div>
+		<div id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
+
+			{% if notification %}
+                <div class="alert alert-info">{{notification}}</div>
+            {% endif %}
+
+
+			<div class="row">
+				<div class="">
+					{{ form_start(form) }}
+
+			<div class="row">
+				<div class="col-md-6">
+					{{ form_row(form.nom) }}
+				</div>
+				<div class="col-md-6">
+					{{ form_row(form.prenom) }}
+				</div>
+			</div>
+
+			{{ form_row(form.email) }}
+            {{ form_row(form.objet) }}
+            {{ form_row(form.message) }}
+			
+
+
+			<div class="col-md-6 ">
+				{{ form_row(form.submit) }}
+			</div>
+                </div>
+
+				
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

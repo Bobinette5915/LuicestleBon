@@ -38,9 +38,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Adresse::class, mappedBy: 'user')]
     private Collection $adresses;
 
+    #[ORM\OneToMany(targetEntity: Creneaux::class, mappedBy: 'IdUtilisateur')]
+    private Collection $creneaux;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
+        $this->creneaux = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -161,6 +165,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($adress->getUser() === $this) {
                 $adress->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Creneaux>
+     */
+    public function getCreneaux(): Collection
+    {
+        return $this->creneaux;
+    }
+
+    public function addCreneaux(Creneaux $creneaux): static
+    {
+        if (!$this->creneaux->contains($creneaux)) {
+            $this->creneaux->add($creneaux);
+            $creneaux->setIdUtilisateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreneaux(Creneaux $creneaux): static
+    {
+        if ($this->creneaux->removeElement($creneaux)) {
+            // set the owning side to null (unless already changed)
+            if ($creneaux->getIdUtilisateur() === $this) {
+                $creneaux->setIdUtilisateur(null);
             }
         }
 

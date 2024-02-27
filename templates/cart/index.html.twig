@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}Panier{% endblock %}
 
 {% block body %}
 
@@ -10,16 +10,16 @@
 		</div>
 
 
-	
 
 	{% if cart|length >0 %}
 
-	<table class="table  mb-5">
+	<table class="table  mb-5 ">
 		<thead>
 			<tr>
 				<th scope="col">Image</th>
 				<th scope="col">Box</th>
-				<th scope="col">Prix de base</th>
+				{# <th scope="col">Prix de base</th> #}
+				{# <th scope="col">Ingredients de base</th> #}
 				<th scope="col">Ingredients suplementaires</th>
 				<th scope="col">Prix Total</th>
 				<th scope="col"></th>
@@ -29,29 +29,35 @@
 			{% set total = null %}
 			{% set QuantityTotal = null %}
 			{% for product in cart %}
-
+			{# {{ dump(product) }} #}
 				<tr>
-					<td class="align-middle"><img src="/assets/images/{{product.product.illustration}}" alt="{{product.product.nom}}" height='75px'></td>
+					<td class="align-middle"><img src="/assets/images/{{product.id.box.illustration}}" alt="{{product.id.box.nom}}" height='75px' class="rounded"></td>
 					<td class="align-middle" scope="row">
-						<strong>{{product.product.nom}}
+						<strong>{{product.id.box.nom}}
 						</strong><br>
 						
 					</td>
-					<td class="align-middle">{{(product.product.prix / 100) |number_format('2')}}
-						€</td>
-					<td>articles supplementaires</td>
+					{# <td class="align-middle">{{(product.id.box.prix / 100) |number_format('2')}}
+						€</td> #}
+					<td>
+						<small> {{product.id.formData.ingredient1}}</small> <br>  <small> {{product.id.formData.ingredient2}}</small> <br>
+						<small> {{product.id.formData.ingredient3}}</small>  <br> <small> {{product.id.formData.ingredient4}}</small>
+
+					</td>
+					
+					
 					<td class="align-middle">
-                    {# {{(product.product.prix * product.quantity / 100) |number_format('2')}} #}
-                    prix de la Box + (1€ x nombre de produits suplementaire)
+                    {{(product.id.box.prix / 100) |number_format('2')}}
+                    
 						€</td>
 					<td class="align-middle">
-						<a href="{{ path('delete_to_cart',{'id' : product.product.id}) }}">
+						<a href="{{ path('app_delete_to_cart',{'id' : product.id.id}) }}">
 							<img src="{{ asset('assets/images/poubelle.svg') }}" height="20px" alt="supprimer mon produit">
 						</a>
 					</td>
-				</tr>
-				{% set QuantityTotal = QuantityTotal + product.quantity %}
-				{% set total = total + (product.product.prix * product.quantity) %}
+				</tr> 
+				{% set QuantityTotal = QuantityTotal + 1 %}
+				{% set total = total + (product.id.box.prix ) %} 
 			{% endfor %}
 		</tbody>
 	</table>
@@ -59,19 +65,27 @@
 	<div class="text-end mb-5 mr-3">
 		<b>Nombre de boxs :
 		</b>
-		{# {{QuantityTotal }} #}
+		{{QuantityTotal }}
 		<br>
 		<b>Total de mon Panier :
 		</b>
-		{# {{(total / 100) |number_format('2')}} #}
+		{{(total / 100) |number_format('2')}}
 		€<br>
-		<div class="d-grid mt-2">
-			{# <a class="btn btn-success btn-lg btn-block" href="{{ path('app_order')}}">Valider le panier</a> #}
-		</div>
+
+	</div>
+	<div class=" row justify-content-evenly text-center ">
+	<div class="col-md-3"><a href="{{path('app_remove_cart')}}" class="btn btn-danger btn-lg">vider le panier</a></div>
+	<div class="col-md-3"><a href="{{path('app_creneaux')}}" class="btn btn-success btn-lg" href="">Choisir mon créneau de Livraison</a></div>
+	
+	
 	</div>
 </div>
+
+
+
 	{% else %}
     <hr>
+	
     <p>Votre panier est vide</p>
 {% endif %}
 {% endblock %}

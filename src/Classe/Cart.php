@@ -4,6 +4,7 @@ namespace App\Classe;
 
 use App\Entity\Boxs;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 
@@ -25,36 +26,21 @@ class Cart
         $request = $this->requestStack->getCurrentRequest();
         $session = $request->getSession();
 
+        // Récupérer le panier depuis la session
         $cart = $session->get('cart', []);
 
-        if (!empty($cart[$id])) {
-            $cart[$id]++;
-        } else {
-            $cart[$id] = 1;
-        }
+        // Ajouter un nouvel article au panier avec l'ID passé en argument
+        $cart[] = [
+            'id' => $id,
+            
+        ];
 
+        // Enregistrer le panier mis à jour dans la session
         $session->set('cart', $cart);
     }
+    
 
-    public function decrease($id)
-    {
-        $request = $this->requestStack->getCurrentRequest();
-        $session = $request->getSession();
-
-        $cart = $session->get('cart', []);
-
-
-        if ($cart[$id]>1) {
-            $cart[$id]--;
-        }
-        else{
-            unset($cart[$id]);
-        }
-        $session->set('cart', $cart);
-        return $cart;
-    }
-
-
+    
     public function get()
     {
         $request = $this->requestStack->getCurrentRequest();
@@ -71,20 +57,21 @@ class Cart
         $session->remove('cart');
     } 
 
-    public function delete($id)
+    public function delete($id, Request $request)
     {
-        $request = $this->requestStack->getCurrentRequest();
-        $session = $request->getSession();
+        $cart = $request->getSession()->get('cart', []);
 
-        $cart = $session->get('cart', []);
-
-        if (isset($cart[$id])) {
-            unset($cart[$id]);
+        // Recherche de l'élément à supprimer dans le panier
+        foreach ($cart as $index => $item) {
+            if ($item['id']['id'] === $id) {
+                // Suppression de l'élément du panier
+                unset($cart[$index]);
+                break; // Arrêter la boucle dès que l'élément est trouvé et supprimé
+            }
         }
 
-        $session->set('cart', $cart);
-
-        return $cart;
+        // Mise à jour du panier dans la session
+        $request->getSession()->set('cart', $cart);
     }
 
     public function getFull()
@@ -96,12 +83,17 @@ class Cart
             if ($product) {
                 $cartComplete[] = [
                     'product' => $product,
-                    'quantity' => $quantity
+                    
                 ];
             }
         }
 
         return $cartComplete;
+    }
+
+    public function addWithIngredients($idbox, $ingredients)
+    {
+        // Logique pour ajouter une boîte avec des ingrédients supplémentaires au panier
     }
 
     

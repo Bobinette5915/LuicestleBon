@@ -4,7 +4,10 @@ namespace App\Controller\Admin;
 
 use App\Entity\Boxs;
 use App\Entity\Categories;
+use App\Entity\Creneaux;
+use App\Entity\Heures;
 use App\Entity\Ingredients;
+use App\Entity\Jours;
 use App\Entity\Partenaires;
 use App\Entity\User;
 use App\Entity\VillesLivrables;
@@ -59,5 +62,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Catégories', 'fas fa-burger', Categories::class);
         yield MenuItem::linkToCrud('Partenaires', 'fas fa-user-group', Partenaires::class);
         yield MenuItem::linkToCrud('Villes Livrables', 'fas fa-city', VillesLivrables::class);
+        yield MenuItem::linkToCrud('Jours', 'fas fa-calendar', Jours::class);
+        yield MenuItem::linkToCrud('Heures', 'fas fa-clock', Heures::class);
     }
 }

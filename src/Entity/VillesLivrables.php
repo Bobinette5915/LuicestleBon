@@ -19,6 +19,10 @@ class VillesLivrables
     #[ORM\Column(length: 255)]
     private ?string $CodePostale = null;
 
+    public function __toString(){
+        return $this->getCodePostale().' '.$this->getVille();
+    }
+
     public function getId(): ?int
     {
         return $this->id;

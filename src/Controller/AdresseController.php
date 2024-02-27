@@ -19,6 +19,9 @@ class AdresseController extends AbstractController
     {
         $this->entityManager = $entityManager;
     }
+
+
+    
     #[Route('compte/adresse', name: 'app_adresse')]
     public function index(): Response
     {
@@ -44,28 +47,6 @@ class AdresseController extends AbstractController
         ]);
     }
 
-    #[Route('compte/modifier-adresse/{id}', name: 'app_modifier_adresse')]
-    public function edit(Request $request ,$id): Response
-    {
-        $adresse = $this->entityManager->getRepository(Adresse::class)->findOneById($id); 
-
-        if (!$adresse || $adresse->getUser() != $this->getUser()) {
-            return $this->redirectToRoute('app_adresse');
-        }
-
-        $form = $this->createForm(AjoutadresseType::class, $adresse);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->flush();
-            return $this->redirectToRoute('app_adresse');
-
-        }
-
-        return $this->render('compte/ajouteradresses.html.twig',[
-            'form' => $form->createView()
-        ]);
-    }
-
     #[Route('compte/supprimer-adresse/{id}', name: 'app_supprimer_adresse')]
     
     
@@ -77,7 +58,6 @@ class AdresseController extends AbstractController
             $this->entityManager->remove($adresse);  
             $this->entityManager->flush(); 
         }
-          
             return $this->redirectToRoute('app_adresse');
         
     }

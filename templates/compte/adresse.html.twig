@@ -26,16 +26,16 @@
                                 <h3 class="card-title">{{ adresse.Nomadresse }}</h3>
                                 <p class="card-text">
                                     {{ adresse.adresse }}<br>
-                                    {{ adresse.postal }} - {{ adresse.Ville }}<br>
+                                    {{ adresse.Ville }}<br> 
                                     {{ adresse.Pays }}
                                 </p>
-                                <div class='text-center'><a href="{{ path('app_modifier_adresse', {'id': adresse.id}) }}">Modifier</a> | <a href="{{ path('app_supprimer_adresse', {'id': adresse.id}) }}">Supprimer</a></div>
+                                <div class='text-center'><a href="{{ path('app_supprimer_adresse', {'id': adresse.id}) }}">Supprimer</a></div>
                             </div>
                         </div>
                     {% endfor %}
                 </div>
             </div>
         </div>
-    {% endif %}
-</div>          
+    {% endif %} 
+</div>           
 {% endblock %}
