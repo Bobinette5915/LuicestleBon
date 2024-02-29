@@ -18,8 +18,6 @@
 			<tr>
 				<th scope="col">Image</th>
 				<th scope="col">Box</th>
-				{# <th scope="col">Prix de base</th> #}
-				{# <th scope="col">Ingredients de base</th> #}
 				<th scope="col">Ingredients suplementaires</th>
 				<th scope="col">Prix Total</th>
 				<th scope="col"></th>
@@ -37,11 +35,21 @@
 						</strong><br>
 						
 					</td>
-					{# <td class="align-middle">{{(product.id.box.prix / 100) |number_format('2')}}
-						€</td> #}
+					
 					<td>
-						<small> {{product.id.formData.ingredient1}}</small> <br>  <small> {{product.id.formData.ingredient2}}</small> <br>
-						<small> {{product.id.formData.ingredient3}}</small>  <br> <small> {{product.id.formData.ingredient4}}</small>
+						{% if product.id.formData.ingredient1 %}
+							<small>{{product.id.formData.ingredient1}}</small> <br> 
+						{% endif %} 
+						{% if product.id.formData.ingredient2 %}
+							<small>{{product.id.formData.ingredient2}}</small> <br> 
+						{% endif %}
+						{% if product.id.formData.ingredient3 %}
+							<small>{{product.id.formData.ingredient3}}</small> <br> 
+						{% endif %}
+						{% if product.id.formData.ingredient4 %}
+							<small>{{product.id.formData.ingredient4}}</small> <br> 
+						{% endif %}
+						
 
 					</td>
 					

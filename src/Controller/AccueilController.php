@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Classe\Cart;
 use App\Entity\Boxs;
 use App\Entity\Partenaires;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Validator\Constraints\Length;
 
 class AccueilController extends AbstractController
 {
@@ -18,10 +20,15 @@ class AccueilController extends AbstractController
         $this->entityManager=$entityManager;
     }
 
-    #[Route('/', name: 'app_accueil')]
-    public function index(): Response
-    {
 
+
+
+    #[Route('/', name: 'app_accueil')]
+    public function index(Cart $cart): Response
+    {
+        
+        $lignePanier = count($cart->get());
+        
         $boxs = $this->entityManager->getRepository(Boxs::class)->findAll();
         $partenaires = $this->entityManager->getRepository(Partenaires::class)->findAll();
 
@@ -37,6 +44,9 @@ class AccueilController extends AbstractController
             'boxs' => $boxs,
             'boxAleatoires' => $boxAleatoires,
             'partenairesAleatoires' => $partenairesAleatoires,
+            'NbArticlesPanier' => $lignePanier,
         ]);
     }
+
+
 }

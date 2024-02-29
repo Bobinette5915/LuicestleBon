@@ -45,24 +45,24 @@ class NosBoxsController extends AbstractController
         $BoxIngredients = $box->getIngredients();
         $list_ingredient = [];
         $form = $this->createForm(PersonnalisationType::class);
-
+        
 
         foreach ($BoxIngredients as $ingredient) {
             $list_ingredient[] = $ingredient;
         }
         
         $form->handleRequest($request);
-       
+        
         if ($form->isSubmitted() && $form->isValid()) {
         $formData = $form->getData();
-      
+        
         // Vous pouvez maintenant accéder à la boîte choisie et aux ingrédients supplémentaires sélectionnés
         $boxChoisie = $box; // Récupérez la boîte choisie à partir des données de la requête ou de la session
         $formuleId = uniqid();
         $formule = [
             'id' => $formuleId,
             'box' => $boxChoisie,
-            'formData' => $formData
+            'formData' => $formData,
         ];        
 
         $cart->add($formule);
