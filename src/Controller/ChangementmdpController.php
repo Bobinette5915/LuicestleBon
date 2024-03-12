@@ -39,17 +39,15 @@ class ChangementmdpController extends AbstractController
                 $user->setPassword($password);
                 
                 $entityManager->flush();
-                $notification = "Votre mot de passe a été correctement modifié";
+                $notification = "Votre mot de passe a été correctement modifié. <br> Un email vient de vous être envoyé";
 
-                // envoi du mail de confirmation d'inscription
-                // $mail =new mail();
+                // envoi du mail de confirmation de changement de mdp
+                $mail =new mail();
+                $objet = 'Bienvenue sur "Les Brunchs"';
+                $contenue = 'Bonjour '.$user->getNom().' <br>Bienvenue sur "les Brunchs de Bob et Tintin", <br> Votre changement de mot de passe a bien été enregistrée ! Vous pouvez dès à present vous connecter <br><hr><br>Decouvrez nos Boxs et mettez du soleil dans vos petits dejeunées !!';
+                $mail -> send('lesbrunchsdebt@gmail.com', 'Les Brunchs destinataire', $user->getEmail(), $user->getNom(),  $objet, $contenue);
 
-                // $objet = 'Modification de Mot de Passe';
-                // $contenue = 'Votre Mot de Passe a bien été Modifié <br><hr><br> Connectez vous avec vos nouveaus identifiants';
-
-                // $mail -> send('bob.et.tintin@gmail.com', 'Les Brunchs expediteur', $user->getEmail() , $user->getNom(),  $objet, $contenue);
-
-        }else {
+            }else {
             $notification = "Votre mot de passe actuel n'est pas le bon";
         }
     }

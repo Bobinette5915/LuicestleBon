@@ -74,27 +74,8 @@ class Cart
         $request->getSession()->set('cart', $cart);
     }
 
-    public function getFull()
-    {
-        $cartComplete= [] ;
-        foreach ($this->get() as $id => $quantity) {
-            $product = $this->entityManager->getRepository(Boxs::class)->find($id);
-            
-            if ($product) {
-                $cartComplete[] = [
-                    'product' => $product,
-                    
-                ];
-            }
-        }
 
-        return $cartComplete;
-    }
 
-    public function addWithIngredients($idbox, $ingredients)
-    {
-        // Logique pour ajouter une boîte avec des ingrédients supplémentaires au panier
-    }
 
     
 }

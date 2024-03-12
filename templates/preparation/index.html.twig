@@ -1,8 +1,134 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}A Preparer{% endblock %}
+{% block title %}A Preparer
+{% endblock %}
 
 {% block body %}
+	<div id="concept" class="container-fluid p-3">
+		<div class="row text-center pt-5">
+			<h1>Commandes à préparer pour Aujourd'hui</h1>
+		</div>
+		<div class="col-md-12   text-center justify-content-between align-items-center p-3">
+			<div class="row justify-content-center">
 
 
+				{% for truc in details %}
+
+					{% if truc[0].Commande.Statue == 'En cours de Préparation' or truc[0].Commande.Statue == 'Payée' or truc[0].Commande.Statue == 'A livrer' %}
+
+
+						<div class="rounded-custom bg-light bg-opacity-75 col-md-4 p-4 m-4 position-relative" id="contentToConvert">
+							<div class="text-end">
+								
+								<form action="{{ path('generer_preparation', {'id': truc[0].Commande.id}) }}" method="post">
+									<button type="submit" class="btn btn-light">
+										<img id='print' src="{{asset('assets/images/imprimante.png')}}" alt="Logo" width="30px">
+									</button>
+								</form>
+							</div>
+
+							<h4>Commande n°
+								{{truc[0].Commande.id}}
+								/
+								{{truc[0].Commande.idCommande}}
+							</h4>
+
+							<div class="row">
+								<div class="col-md-6 text-start p-4">
+									<strong>Client :
+									</strong><br>
+
+									{{truc[0].Commande.NomUtilisateur}}
+									{{truc[0].Commande.PrenomUtilisateur}}
+									{% if truc[0].Commande.Telephone  %}
+										<br>{{truc[0].Commande.Telephone}}
+									{% endif %}
+								</div>
+
+								<div class="col-md-6">
+									<strong>A livrer le :
+									</strong>
+									{{ truc[0].Commande.dateLivraison|date('d/m/Y') }}
+									<br>
+									<strong>A :
+									</strong>
+									{{ truc[0].Commande.heureLivraison|date('H:i') }}
+									<hr>{{truc[0].Commande.AdresseLivraison}}
+
+								</div>
+							</div>
+
+							<div class="row ">
+								{% for box in truc %}
+
+
+									<div class="col-md-6 text-start mb-3"><hr>
+										<strong>{{box.nomFormule}}</strong>
+
+
+										<br>
+										{% if box.IngredientSupp1 or box.IngredientSupp2 or box.IngredientSupp3 or box.IngredientSupp4 %}
+
+
+											ingrediends suplementaire
+											<small>
+												{% if box.IngredientSupp1 %}
+													<li>{{box.IngredientSupp1}}</li>
+												{% endif %}
+												{% if box.IngredientSupp2 %}
+													<li>{{box.IngredientSupp2}}</li>
+												{% endif %}
+												{% if box.IngredientSupp3 %}
+													<li>{{box.IngredientSupp3}}</li>
+												{% endif %}
+												{% if box.IngredientSupp4 %}
+													<li>{{box.IngredientSupp4}}</li>
+												{% endif %}
+											</small>
+											{% else %}
+										{% endif %}
+									</div>
+
+								{% endfor %}
+								<br>
+								<hr>
+								<div class="row">
+									<div class="col-md-4">Prix :
+										<strong>{{(truc[0].Commande.Prix/ 100) |number_format('2')}}€</strong>
+									</div>
+									<div class="col-md-4"></div>
+									<div class="col-md-4">
+										Payée :
+										<strong>
+											{% if truc[0].Commande.isPaid == true %}
+												OUI
+											{% else %}
+												NON
+											{% endif %}
+										</strong>
+									</div>
+								</div>
+							</div>
+							<div class="row mt-3 ">
+								<div class="col-md-6">Statut de Commande :
+									<strong>{{truc[0].Commande.Statue}}</strong>
+								</div>
+								<div class="col-md-6">
+									{% if truc[0].Commande.Statue != 'A livrer' %}
+										<a href="{{path('app_update',{'id' : truc[0].Commande.id})}}" class="btn btn-info">Passer la commande à l'etape "A Livrer"</a>
+									{% else %}
+										Signature du client à la livraison
+										<br><br>
+									{% endif %}
+								</div>
+							</div>
+						</div>
+
+					{% endif %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+	<script></script>
 {% endblock %}

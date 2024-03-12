@@ -21,7 +21,7 @@
 					<div class="row">
 						{% for ingredient in ingredients %}
 							<div class="col-md-6 mb-3 ">
-								<small>{{ ingredient.ingredient }}</small>
+								{{ ingredient.ingredient }}
 							</div>
 							{% if loop.index % 2 == 0 %}
 							</div>

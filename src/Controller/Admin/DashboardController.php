@@ -10,6 +10,7 @@ use App\Entity\Ingredients;
 use App\Entity\Jours2;
 use App\Entity\Partenaires;
 use App\Entity\User;
+use App\Entity\Commande;
 use App\Entity\VillesLivrables;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -64,5 +65,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Villes Livrables', 'fas fa-city', VillesLivrables::class);
         yield MenuItem::linkToCrud('Jours', 'fas fa-calendar', Jours2::class);
         yield MenuItem::linkToCrud('Heures', 'fas fa-clock', Heures::class);
+        yield MenuItem::linkToCrud('Commandes', 'fa-brands fa-jedi-order', Commande::class);
     }
 }

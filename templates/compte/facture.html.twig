@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facture des Brunchs de Bob et Tintin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo img {
+            max-width: 150px;
+            max-height: auto;
+        }
+        .title {
+            text-align: center;
+        }
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+        .invoice-details p {
+            margin: 5px 0;
+        }
+        .items {
+            margin-bottom: 20px;
+        }
+        .items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .items th, .items td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        .prix {
+            text-align: right;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="logo">
+        <img src="data:image/svg+xml;base64,{{ base64_image }}" alt="logo">
+    </div>
+    <div class="invoice-details">
+        <p>Les brunchs de Bob et Tintin</p>
+        <p>1 Rue Blaise Pascal <br> 62219 Longuenesse</p>
+        <p><strong>N° de Siret :</strong> 12345678901234</p>
+        <h1 class="title">Facture</h1>
+        <p><strong>Au nom de :</strong> {{ app.user.prenom }} {{ app.user.nom }}</p>
+        <p><strong>N° de commande :</strong> {{ details.commande.idCommande }}</p>
+        <p><strong>Commandé le :</strong> {{ details.commande.dateCommande | date('d-m-Y') }}</p>
+        <p><strong>Livré le :</strong> {{ details.commande.dateLivraison | date('d-m-Y') }} <strong>à</strong> {{ details.commande.heureLivraison | date('H:i') }}</p>
+        <p><strong>A l'adresse :</strong> {{ details.commande.AdresseLivraison }}</p>
+    </div>
+    <div class="items">
+        <h3>Comprenant :</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Box</th>
+                    <th>Ingrédients supplémentaires</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commandeDetails in details.commande.commandeDetails %}
+                    <tr>
+                        <td>{{ commandeDetails.nomFormule }}</td>
+                        <td>
+                            {% if commandeDetails.ingredientSupp1 or commandeDetails.ingredientSupp2 or commandeDetails.ingredientSupp3 or commandeDetails.ingredientSupp4 %}
+                                {% if commandeDetails.ingredientSupp1 %}{{ commandeDetails.ingredientSupp1 }} <br>{% endif %}
+                                {% if commandeDetails.ingredientSupp2 %}{{ commandeDetails.ingredientSupp2 }} <br>{% endif %}
+                                {% if commandeDetails.ingredientSupp3 %}{{ commandeDetails.ingredientSupp3 }} <br>{% endif %}
+                                {% if commandeDetails.ingredientSupp4 %}{{ commandeDetails.ingredientSupp4 }} <br>{% endif %}
+                            {% else %}
+                                <p><strong>Vous n'avez pas ajouté d'ingrédients supplémentaires à cette commande</strong></p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="prix">
+        <p><strong>Prix HT :</strong> {{ (details.commande.prix / 100) * 0.9 | number_format(2, '.', ' ') }} €</p>
+        <p><strong>TVA :</strong> 10%</p>
+        <p><strong>Prix Total :</strong> {{ details.commande.prix / 100 | number_format(2, '.', ' ') }} €</p>
+    </div>
+</div>
+</body>
+</html>

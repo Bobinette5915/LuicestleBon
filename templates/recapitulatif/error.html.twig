@@ -1,0 +1,54 @@
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .error-icon {
+            color: red;
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: red;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #333;
+            font-size: 18px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="error-icon">❌</div>
+        <h1>Erreur de Paiement</h1>
+        <p>Votre paiement n'a pas pu être traité.</p>
+        <p>Veuillez réessayer plus tard ou contacter le support.</p>
+        <a href="{{path('app_cart')}}" class="btn btn-success">Revenir au Panier</a>
+
+    </div>
+						
+{% endblock %}

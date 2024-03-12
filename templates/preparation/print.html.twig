@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bon de Livraison</title>
+     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            width: 100px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .details {
+            margin-bottom: 20px;
+        }
+
+        .details h3 {
+            margin: 0;
+            font-size: 24px;
+            color: #007bff;
+        }
+
+        .details p {
+            margin: 0;
+        }
+
+        .items {
+            margin-bottom: 20px;
+        }
+
+        .items table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .items th, .items td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+
+        .items th {
+            background-color: #f2f2f2;
+        }
+
+        .total {
+            text-align: right;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+        img{ text-align: center; max-width: 150px; max-height: auto;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <img src="data:image/svg+xml;base64,{{ base64_image }}" alt="logo">
+            <h2>Bon de Livraison</h2>
+        </div>
+        <div class="details">
+            
+            <br>
+            <p><strong>Nom :</strong> {{ detail.Commande.NomUtilisateur }}</p>
+            <p><strong>Prénom :</strong> {{ detail.Commande.PrenomUtilisateur }}</p>
+            {% if detail.Commande.Telephone %}
+                <p><strong>Téléphone :</strong> {{ detail.Commande.Telephone }}</p>
+            {% endif %}
+            <p><strong>Adresse de Livraison :</strong> {{ detail.Commande.AdresseLivraison }}</p>
+            <p><strong>Date de Livraison :</strong> {{ detail.Commande.dateLivraison|date('d/m/Y') }}</p>
+            <p><strong>Heure de Livraison :</strong> {{ detail.Commande.heureLivraison|date('H:i') }}</p>
+        </div>
+        <div class="items">
+            <h3>Détails de la Commande :</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Formule</th>
+                        <th>Ingredients Supplémentaires</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for box in detail.commande.commandeDetails %}
+                        <tr>
+                            <td>{{ box.nomFormule }}</td>
+                            <td>
+                                {% if box.IngredientSupp1 %}{{ box.IngredientSupp1 }}<br>{% endif %}
+                                {% if box.IngredientSupp2 %}{{ box.IngredientSupp2 }}<br>{% endif %}
+                                {% if box.IngredientSupp3 %}{{ box.IngredientSupp3 }}<br>{% endif %}
+                                {% if box.IngredientSupp4 %}{{ box.IngredientSupp4 }}<br>{% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="total">
+            <p><strong>Total :</strong> {{ (detail.Commande.Prix / 100) | number_format('2') }}€</p>
+        </div>
+        <div class="footer">
+            <p>Signature du Client :</p>
+        </div>
+    </div>
+</body>
+</html>

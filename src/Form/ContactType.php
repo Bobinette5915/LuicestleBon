@@ -14,7 +14,10 @@ class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $date = new \DateTime();
+
         $builder
+        
             ->add('nom', TextType::class, [
                 'label'=>'Votre Nom',
                 'attr' => [

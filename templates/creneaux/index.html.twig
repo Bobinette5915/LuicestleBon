@@ -18,96 +18,106 @@
 				<div class="row p-3">
 					<div class="col-md-6">
 						{{ form_widget(form.Jours) }}
-						</div>
-
-						<div class="col-md-6">
-							{{ form_widget(form.Heures) }}
-							</div>
-
-						</div>
-
-						<hr>
-						<div>
-							<h3 class="m-3">Choix de l'adresse de livraison</h3>
-							<div class="row p-3">
-								{% for adresseForm in form.Adresse %}
-									<div class="col-md-6 mb-2">
-										<div class="rounded-custom bg-light bg-opacity-75 p-3">
-											{{ form_widget(adresseForm) }}
-										</div>
-									</div>
-									{# Ajoutez un élément de séparation après chaque deuxième adresse #}
-									{% if loop.index % 2 == 0 %}
-									</div>
-									<div class="row">
-									{% endif %}
-								{% endfor %}
-								{{ form_end(form) }}
-							</div>
-						</div>
-
 					</div>
 
 					<div class="col-md-6">
-						<h3 class="m-3">Rappel de mon panier</h3>
+					{{ form_widget(form.Heures) }} 
+						
+						
+					</div>
+{% if notification %}
 
-						<div class="row text-start p-4">
-							{% set total = null %}
-							{% set QuantityTotal = null %}
-							{% for product in cart %}
-								<div class="col-md-2 p-3"><img src="/assets/images/{{product.id.box.illustration}}" alt="{{product.id.box.nom}}" height='75px' class="rounded mr-3">
-								</div>
-								<div class="col-md-8 p-3">
-									<strong>{{product.id.box.nom}}
-										personalisée</strong><br>
-									{% if product.id.formData.ingredient1 or product.id.formData.ingredient2 or product.id.formData.ingredient3 or product.id.formData.ingredient4 %}
+							<div class='alert alert-info text-center mt-3'>
+								{{notification | raw}}</div>
+						{% endif %}
+				</div>
+
+				<hr>
+		<div>
+    <h3 class="m-3">Choix de l'adresse de livraison</h3>
+    <div class="row p-3">
+        {% if form.Adresse is empty %}
+            <div class="col-md-12 mb-2">
+				<p>Vous N'avez pas encore crée d'adresse</p>
+                <a href="{{ path('app_ajouter_adresse') }}" class="btn btn-primary">Ajouter une adresse</a>
+            </div>
+        {% else %}
+            {% for adresseForm in form.Adresse %}
+                <div class="col-md-6 mb-2">
+                    <div class="rounded-custom bg-light bg-opacity-75 p-3">
+                        {{ form_widget(adresseForm) }}
+                    </div>
+                </div>
+                {# Ajoutez un élément de séparation après chaque deuxième adresse #}
+                {% if loop.index % 2 == 0 %}
+                    </div>
+                    <div class="row">
+                        <a href="{{ path('app_ajouter_adresse') }}" class="mb-4 text-end">Ajouter une nouvelle adresse</a>
+                        <br>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+		{{ form_end(form) }}
+    </div>
+</div>
+   </div>
+			<div class="col-md-6">
+				<h3 class="m-3">Rappel de mon panier</h3>
+
+				<div class="row text-start p-4">
+					{% set total = null %}
+					{% set QuantityTotal = null %}
+					{% for product in cart %}
+						<div class="col-md-2 p-3"><img src="/assets/images/{{product.id.box.illustration}}" alt="{{product.id.box.nom}}" height='75px' class="rounded mr-3">
+						</div>
+						<div class="col-md-8 p-3">
+							<strong>{{product.id.box.nom}}
+								personalisée</strong><br>
+							{% if product.id.formData.ingredient1 or product.id.formData.ingredient2 or product.id.formData.ingredient3 or product.id.formData.ingredient4 %}
 
 
-										Ingredient supplementaires :
-										<small>
-											{% if product.id.formData.ingredient1 %}
-												{{product.id.formData.ingredient1}}
-												|
-											{% endif %}
-											{% if product.id.formData.ingredient2 %}
-												{{product.id.formData.ingredient2}}
-												|
-											{% endif %}
-											{% if product.id.formData.ingredient3 %}
-												{{product.id.formData.ingredient3}}
-												|
-											{% endif %}
-											{% if product.id.formData.ingredient4 %}
-												{{product.id.formData.ingredient4}}
-											{% endif %}
-
-										</small>
+								Ingredient supplementaires :
+								<small>
+									{% if product.id.formData.ingredient1 %}
+										{{product.id.formData.ingredient1}}
+										|
 									{% endif %}
-								</div>
-								<div class="col-md-2 p-3">
-									{{(product.id.box.prix / 100) |number_format('2')}}
-									€
-								</div>
+									{% if product.id.formData.ingredient2 %}
+										{{product.id.formData.ingredient2}}
+										|
+									{% endif %}
+									{% if product.id.formData.ingredient3 %}
+										{{product.id.formData.ingredient3}}
+										|
+									{% endif %}
+									{% if product.id.formData.ingredient4 %}
+										{{product.id.formData.ingredient4}}
+									{% endif %}
 
-								{% set QuantityTotal = QuantityTotal + 1 %}
-								{% set total = total + (product.id.box.prix ) %}
-							{% endfor %}
-
+								</small>
+							{% endif %}
+						</div>
+						<div class="col-md-2 p-3">
+							{{(product.id.box.prix / 100) |number_format('2')}}
+							€
 						</div>
 
-						
-							<div class="col-md-8 mx-auto">Total à Payer :
-								{{(total / 100) |number_format('2')}}€
+						{% set QuantityTotal = QuantityTotal + 1 %}
+						{% set total = total + (product.id.box.prix ) %}
+					{% endfor %}
 
-							</div>
-						
-						
-						
-						<br>
-
-					</div>
 				</div>
+
+
+				<div class="col-md-8 mx-auto">Total à Payer :
+					{{(total / 100) |number_format('2')}}€
+
+				</div>
+
+
+				<br>
+
 			</div>
 		</div>
-
-	{% endblock %}
+	</div>
+</div>{% endblock %}

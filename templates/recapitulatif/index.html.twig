@@ -10,7 +10,7 @@
 
 		<div id="concept" class="container-fluid p-3 text-center">
 			<div class="row text-center pt-5">
-				<h2>Recapitulaif de la commande</h2>
+				<h2>Recapitulatif de la commande</h2>
 			</div>
 			<div id="conceptExplain" class="row col-md-11 mx-auto p-3">
 				<div class="col-md-6">
@@ -24,8 +24,8 @@
 						votre adresse est
 						<strong>{{dernier_item.preparation.infosLivraison.Adresse}}</strong>
 						<br>
-						Votre Numero de Commande est le
-						<strong>{{dernier_item.preparation.idCommande}}</strong>
+						{# Votre Numero de Commande est le
+						<strong>{{dernier_item.preparation.idCommande}}</strong> #}
 					</div>
 
 				</div>
@@ -40,14 +40,22 @@
 						<br>
 
 					{% endfor %}                       
-                    Prix Total = {{(dernier_item.preparation.prix / 100) |number_format('2')}}€<br>
+                    
+					{{ form_start(form) }}			
+			
+			{{ form_widget(form.prix, {'value': dernier_item.preparation.prix}) }}
+			{{ form_widget(form.date, {'value': date|date('d F Y')}) }}
+			{{ form_widget(form.idCommande, {'value': dernier_item.preparation.idCommande}) }}
+			{{ form_widget(form.save) }}
+		{{ form_end(form) }}
 
-					<a href="{{path('app_remove_preparation')}}" class="btn btn-danger">supprimer cette commande</a>
+					
 				</div>
 
 			</div>
-		</div>
-
+		</div> 
+	
+		
 	{% endif %}
 	<div></div>
 {% endblock %}

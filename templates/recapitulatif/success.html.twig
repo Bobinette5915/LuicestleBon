@@ -1,0 +1,57 @@
+
+{% block title %}
+{% endblock %}
+
+{% block body %}
+
+{# <h1>Merci pour votre achat !</h1>
+    <p>Pour voir votre commande, merci de vous rendre sur Mes Commandes.</p>
+						<a href="{{path('app_remove_preparation')}}" class="btn btn-success">Revenir au Site</a> #}
+ <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        .success-icon {
+            color: green;
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: green;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #333;
+            font-size: 18px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-icon">✔️</div>
+        <h1>Paiement Réussi</h1>
+        <p>Votre paiement a été traité avec succès.</p>
+        <p>Merci d'avoir effectué votre achat!</p>
+        <a href="{{path('app_remove_preparation')}}" class="btn btn-success">Revenir au Site</a>
+    </div>
+
+{% endblock %}

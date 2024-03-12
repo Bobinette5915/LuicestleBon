@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié!
+{% endblock %}
+
+{% block body %}
+
+	<div id="concept" class="container-fluid p-3">
+		<div class="row text-center pt-5">
+			<h1>Reinitialisation du mot de passe</h1>
+
+		</div>
+		<div id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
+            {% for message in app.flashes('notice') %}
+                 <div class="alert alert-info">{{message}}</div>
+            {% endfor %}
+			<form method="post">
+
+				<label for="inputEmail">Email</label>
+				<input type="email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+				<br>
+				<div class="d-grid col-6 mx-auto">
+					<button class="btn btn-lg btn-primary mt-2" type="submit">
+						Valider
+					</button>
+				</div>
+				<p class="text-center mt-3"><a href="{{path('app_connexion')}}">Connectez-vous </a>!</p>
+
+			</form>
+
+		</div>
+	</div>
+{% endblock %}

@@ -3,3 +3,10 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+generer_facture:
+    path: '/generer-facture/{id}'
+    controller: 'App\Controller\FactureController::genererFacture'
+generer_preparation:
+    path: '/generer-preparation/{id}'
+    controller: 'App\Controller\PreparationController::genererpreparation'
+    methods: ['POST']

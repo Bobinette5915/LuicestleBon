@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\InscriptionType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -46,10 +47,10 @@ class InscriptionController extends AbstractController
                 Vous pouvez dès à présent vous connecter dans l'onglet  'se Connecter'";
 
                 // envoi du mail de confirmation d'inscription
-                // $mail =new mail();
-                // $objet = 'Bienvenue sur "Les Brunchs"';
-                // $contenue = 'Bonjour '.$utilisateur->getNom().' <br>Bienvenue sur "les Brunchs de Bob et Tintin", <br> Votre inscription a bien été enregistrée ! Vous pouvez dès à present vous connecter <br><hr><br>Decouvrez nos Boxs et mettez du soleil dans vos petits dejeunées !!';
-                // $mail -> send('bob.et.tintin@gmail.com', 'Les Brunchs destinataire', $utilisateur->getEmail(), $utilisateur->getNom(),  $objet, $contenue);
+                $mail =new Mail();
+                $objet = 'Bienvenue sur "Les Brunchs"';
+                $contenue = 'Bonjour '.$utilisateur->getNom().' <br>Bienvenue sur "les Brunchs de Bob et Tintin", <br> Votre inscription a bien été enregistrée ! Vous pouvez dès à present vous connecter <br><hr><br>Decouvrez nos Boxs et mettez du soleil dans vos petits dejeunées !!';
+                $mail -> send('lesbrunchsdebt@gmail.com', 'Les Brunchs destinataire', $utilisateur->getEmail(), $utilisateur->getNom(),  $objet, $contenue);
 
 
             } else {

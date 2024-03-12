@@ -67,6 +67,7 @@ public function deleteFromCart(Cart $cart, $id, RequestStack $requestStack): Res
 {
     if (count($cart->get()) > 1){
         $request = $requestStack->getCurrentRequest();
+        
     $cart->delete($id, $request);
 
     return $this->redirectToRoute('app_cart');

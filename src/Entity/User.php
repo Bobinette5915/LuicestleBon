@@ -41,6 +41,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: Creneaux::class, mappedBy: 'IdUtilisateur')]
     private Collection $creneaux;
 
+    #[ORM\Column(length: 255)]
+    private ?string $tel = null;
+
     public function __construct()
     {
         $this->adresses = new ArrayCollection();
@@ -197,6 +200,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $creneaux->setIdUtilisateur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(string $tel): static
+    {
+        $this->tel = $tel;
 
         return $this;
     }

@@ -24,23 +24,44 @@ class ContactController extends AbstractController
     #[Route('/contact', name: 'app_contact')]
     public function index(Request $request): Response
     { 
+        $date = new \DateTimeImmutable;
         $contact = new Contact(); // Crée une nouvelle instance de l'entité Contact
         $notification = null;
         $form= $this->createForm(ContactType::class, $contact); // Passe l'instance de Contact au formulaire
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() ) {
+            
+            $formInfos = $form->getData();
+
+            $email = $formInfos->getEmail();
+            $nom = $formInfos->getNom();
+            $prenom = $formInfos->getPrenom();
+            $objet = $formInfos->getObjet();
+            $message = $formInfos->getMessage();
+
+            $contact = new Contact();
+            $contact->setDate($date);
+            $contact->setEmail($email);
+            $contact->setNom($nom);
+            $contact->setPrenom($prenom);
+            $contact->setObjet($objet);
+            $contact->setMessage($message);
+
+            
+
+
             $this->entityManager->persist($contact); // Enregistre l'entité Contact
             $this->entityManager->flush();
 
             $notification = 'Votre message a bien été pris en compte, nous reviendrons vers vous dès que possible !';
             
-            // Envoi un mail aux admins avec le texte du contact
-            // $mail = new Mail();
-            // $content = "Bonjour <br>vous avez recu un nouveau message de la part de ".$contact->getNom()." ".$contact->getPrenom()." sur Les Brunchs de Bob et Tintin <br>
-            // A propos de : ". $contact->getObjet()."<hr>
-            // Voici le message : <br><br>".$contact->getMessage()."<br> <hr> <br>Répondez a cette adresse : ".$contact->getEmail();
-            // $mail->send("chewie.59@hotmail.fr", "Nom du site ", 'Nouveau message du formulaire de contact', $content);
+            //Envoi un mail aux admins avec le texte du contact
+            $mail = new Mail();
+            $content = "Bonjour <br>vous avez recu un nouveau message de la part de ".$nom." ".$prenom." sur Les Brunchs de Bob et Tintin <br>
+            A propos de : ". $objet."<hr>
+            Voici le message : <br><br>".$message."<br> <hr> <br>Répondez a cette adresse : ".$email;
+            $mail->send("lesbrunchsdebt@gmail.com", "Les Brunchs de Bob et Tintin ","lesbrunchsdebt@gmail.com", "Contact B&T", 'Nouveau message du formulaire de contact', $content);
         }
 
         return $this->render('contact/index.html.twig',[

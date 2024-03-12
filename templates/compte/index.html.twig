@@ -5,15 +5,27 @@
 {% block body %}
 <div id="concept">
     <h1 class='text-center'>Mon compte</h1>
-    <p class='text-center' style='font-weight: bold; font-size: xx-large;'>Bienvenue dans votre compte.<br>
+            <p class='text-center' style='font-weight: bold; font-size: xx-large;'>Bienvenue dans votre compte
+            {{ app.user.prenom }}.<br>
+
+    <p class='text-center' style='font-weight: bold; font-size: xx-large;'>
     C'est dans cet espace que vous pouvez gérer vos informations personnelles.</p>
     <hr>
     {% if is_granted('ROLE_ADMIN' )%}
     <p class='text-center m-4'>
-    <button class="btn btn-info col-md-3"><a href="{{ path('admin') }}" class='text-decoration-none '>Vous êtes ADMINISTRATEUR, accéder au backoffice.</a></button></p>
+    <button class="btn btn-info col-md-3"><a href="{{ path('admin') }}" class='text-decoration-none '>Vous êtes ADMINISTRATEUR, accéder au backoffice.</a></button>
+    <br>
+    <button class="btn btn-info col-md-3 mt-2"><a href="{{ path('app_preparation') }}" class='text-decoration-none '>Accéder aux commandes à preparer.</a></button></p>
+</p>
+    <hr>
+    {% endif %}
+    {% if is_granted('ROLE_PREP' )and not is_granted('ROLE_ADMIN') %}
+        <p class='text-center m-4'>
+    <button class="btn btn-info col-md-3"><a href="{{ path('app_preparation') }}" class='text-decoration-none '>Vous êtes PREPARATEUR, accéder aux commandes à preparer.</a></button></p>
     <br>
     {% endif %}
-
+    {% if is_granted('ROLE_USER' ) %}
+    
     <div class="row text-center p-3">
 
         <div class="col-md-4">
@@ -30,10 +42,11 @@
         </div>
         <div class="col-md-4">
             <div class="account-item text-center rounded-custom bg-light bg-opacity-80">
-                <a href=""><img src="{{asset('assets/images/boite.png')}}" alt="Mes commandes"><br>
+                <a href="{{path('app_mescommandes')}}"><img src="{{asset('assets/images/boite.png')}}" alt="Mes commandes"><br>
                 Mes commandes.</a>
             </div>
         </div>
     </div>
+    {% endif %}
 </div>
 {% endblock %}

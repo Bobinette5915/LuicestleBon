@@ -1,10 +1,65 @@
 <!DOCTYPE html>
 <html lang="fr">
 	<head>
+	<script  src ="{{asset('assets/tarteaucitron/tarteaucitron.js')}}"> </script>
+
+		<script> 
+		tarteaucitron . init ( { 
+			"privacyUrl" : "" ,  /* URL de la politique de confidentialité */ 
+			"bodyPosition" : "bottom" ,  /* ou top pour l'amener comme premier élément pour l'accessibilité */
+
+			"hashtag" : "#tarteaucitron" ,  /* Ouvrir le panel avec ce hashtag */ 
+			"cookieName" : "tarteaucitron" ,  /* Nom du cookie */
+
+			"orientation" : "middle" ,  /* Position de la bannière (haut - bas - milieu - popup) */
+
+			"groupServices" : false ,  /* Regrouper les services par catégorie */ 
+			"showDetailsOnClick" : true ,  /* Cliquez pour développer la description */ 
+			"serviceDefaultState" : "wait" ,  /* État par défaut (true - wait - false) */
+
+			"showAlertSmall" : false ,  /* Afficher la petite bannière en bas à droite */ 
+			"cookieslist" : false ,  /* Afficher la liste des cookies */
+			
+			"showIcon" : true ,  /* Afficher l'icône du cookie pour gérer les cookies */ 
+			// "iconSrc": "", /* Facultatif : URL ou image encodée en base64 */ 
+			"iconPosition" : "BottomRight" ,  /* Position de l'icône entre BottomRight, BottomLeft, TopRight et TopLeft */
+
+			"adblocker" : false ,  /* Afficher un avertissement si un adblocker est détecté */
+
+			"DenyAllCta" : true ,  /* Afficher le bouton Tout refuser */ 
+			"AcceptAllCta" : true ,  /* Afficher le bouton Accepter tout lorsque highPrivacy est activé */ 
+			"highPrivacy" : true ,  /* FORTEMENT RECOMMANDÉ Désactiver le consentement automatique */
+
+			"handleBrowserDNTRequest" : false ,  /* Si Do Not Track == 1, tout interdire */
+
+			"removeCredit" : false ,  /* Supprimer le lien de crédit */ 
+			"moreInfoLink" : true ,  /* Afficher le lien plus d'infos */ 
+			"useExternalCss" : false ,  /* Si faux, le fichier tarteaucitron.css sera chargé */ 
+			"useExternalJs " : false ,  /* Si faux, le fichier tarteaucitron.services.js sera chargé */
+
+			// "cookieDomain": ".my-multisite-domaine.fr", /* Cookie partagé pour le site sous-domaine */
+
+			"readmoreLink" : "" ,  /* Changer le lien readmore par défaut pointant vers tarteaucitron.io */
+			
+			"mandatory" : true ,  /* Afficher un message sur les cookies obligatoires */ 
+			"mandatoryCta" : true ,  /* Afficher le bouton d'acceptation désactivé lorsqu'il est obligatoire */
+			
+			// "customCloserId": "", /* Facultatif a11y : ID d'élément personnalisé utilisé pour ouvrir le panneau */
+
+			"googleConsentMode" : true ,  /* Activer le mode consentement Google v2 pour les annonces Google et GA4 */
+			
+			"partnersList" : false  /* Détaille le nombre de partenaires sur la popup et la bannière du milieu */ 
+		}); 
+		tarteaucitron.user.gajsUa = 'UA-97102682-4';
+        tarteaucitron.user.gajsMore = function () { /* add here your optionnal _ga.push() */ };
+        (tarteaucitron.job = tarteaucitron.job || []).push('gajs');
+		</script>​​
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 		<link href="https://fonts.googleapis.com/css2?family=Itim&display=swap" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css2?family=Italianno&display=swap" rel="stylesheet">
+		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+		
 		<meta charset="UTF-8">
 		<title>
 			{% block title %}Les Brunchs de Bob et Tintin
@@ -13,6 +68,7 @@
 		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
 		<link rel="stylesheet" href="{{ asset('build/vendor.css') }}">
 		<script src="{{ asset('build/vendor.js') }}" defer></script>
+		<script src="{{ asset('build/js/jspdf.umd.min.js') }}" defer></script>
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
@@ -33,4 +89,5 @@
 		<br>
 		{% include "includes/footer.html.twig" %}
 	</body>
+	
 </html>

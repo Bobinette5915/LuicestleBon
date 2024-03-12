@@ -1,0 +1,84 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+    <div id="concept">
+        <h1 class='text-center'>Mes commandes</h1>
+        <p class='text-center' style='font-weight: bold; font-size: xx-large;'>Bienvenue dans votre compte
+            {{ app.user.prenom }}.<br>
+            C'est dans cet espace que vous pouvez voir vos commandes passées.</p>
+        <hr>
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <div class="row mx-n3">
+                
+                    {% for detailCommande in details %}
+                        {% if detailCommande[0].commande.ispaid %}
+                            <div class="col-md-4 mb-4 px-3 text-center">
+                                <div class="rounded-custom bg-light bg-opacity-75 p-3">
+                                    <strong>N° de commande :</strong> {{ detailCommande[0].commande.id}} / {{ detailCommande[0].commande.idCommande }}<br>
+                                    <strong>Prix Total :</strong> {{ (detailCommande[0].commande.prix / 100) | number_format('2') }} €<br>
+                                    <strong>Commandé le :</strong> {{ detailCommande[0].commande.dateCommande|date('d-m-Y') }}<br>
+                                    <strong>Etat:</strong> {{ detailCommande[0].commande.Statue }}<br>
+                                    <button class="btn btn-success toggle-commande my-3">Voir les détails</button>
+                                    
+                                    <a href="{{ path('app_panier_again', {'id': detailCommande[0].commande.id}) }}"><button class="btn btn-success  my-3">Commander de Nouveau</button></a>
+                                    
+                                    <div class="details-commande mt-3" style="display: none;">
+                                        <ul class="list-unstyled">
+                                            {% for ligne in detailCommande %}
+                                                <li>
+                                                    <strong>Box :</strong> {{ ligne.NomFormule }}<br>
+                                                    {% if ligne.IngredientSupp1 or ligne.IngredientSupp2 or ligne.IngredientSupp3 or ligne.IngredientSupp4 %}
+                                                        <strong>Ingrédients supplémentaires :</strong> 
+                                                        {% if ligne.IngredientSupp1 %}{{ ligne.IngredientSupp1 }}{% endif %}
+                                                        {% if ligne.IngredientSupp2 %}, {{ ligne.IngredientSupp2 }}{% endif %}
+                                                        {% if ligne.IngredientSupp3 %}, {{ ligne.IngredientSupp3 }}{% endif %}
+                                                        {% if ligne.IngredientSupp4 %}, {{ ligne.IngredientSupp4 }}{% endif %}
+                                                    {% else %}
+                                                        <strong>Ingrédients supplémentaires :</strong> 
+                                                        <p>Vous n'avez pas ajouté d'ingrédients supplémentaires à cette commande</p>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        </ul>
+                                        <form action="{{ path('generer_facture', {'id': detailCommande[0].commande.id}) }}" method="post">
+                                        <button type="submit" class="btn btn-primary">Générer Facture</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if not details %}
+        <p class="text-center mt-5">Vous n'avez pas encore de commandes passées, pour passer votre première commande
+            <a href="{{ path('app_accueil') }}" class="btn btn-primary">Cliquez ici</a>
+        </p>
+    {% endif %}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const toggleCommande = document.querySelectorAll('.toggle-commande');
+
+            toggleCommande.forEach(function(element) {
+                element.addEventListener('click', function() {
+                    const detailsCommande = this.parentNode.querySelector('.details-commande');
+
+                    if (detailsCommande.style.display === 'none') {
+                        detailsCommande.style.display = 'block';
+                        this.innerText = 'Masquer les détails';
+                    } else {
+                        detailsCommande.style.display = 'none';
+                        this.innerText = 'Voir les détails';
+                    }
+                });
+            });
+        });
+    </script>
+{% endblock %}
