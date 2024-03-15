@@ -51,7 +51,7 @@ class NosBoxsController extends AbstractController
             $list_ingredient[] = $ingredient;
         }
         
-        $form->handleRequest($request);
+        $form->handleRequest($request); 
         
         if ($form->isSubmitted() && $form->isValid()) {
         $formData = $form->getData();
