@@ -31,7 +31,7 @@
                     <div class="input-group">
                         {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'autocomplete': 'new-password'}}) }}
                         <div class="input-group-append">
-                            <button type="button" class="btn btn-outline-secondary" id="togglePassword" style="border: none; background: none;">
+                            <button type="button" class="btn btn-outline-secondary" id="mot-de-passe" style="border: none; background: none;">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -44,7 +44,7 @@
                     <div class="input-group">
                         {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'autocomplete': 'new-password'}}) }}
                         <div class="input-group-append">
-                            <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword" style="border: none; background: none;">
+                            <button type="button" class="btn btn-outline-secondary" id="confirme-mot-de-passe" style="border: none; background: none;">
                                 <i class="fas fa-eye"></i>
                             </button>
                         </div>
@@ -61,25 +61,25 @@
     </div>
 
     <script>
-        let passwordField = document.getElementById('inscription_password_first');
-        let confirmPasswordField = document.getElementById('inscription_password_second');
-        let togglePasswordButton = document.getElementById('togglePassword');
-        let toggleConfirmPasswordButton = document.getElementById('toggleConfirmPassword');
+        let champmdp = document.getElementById('inscription_password_first');
+        let champconfirmmdpd = document.getElementById('inscription_password_second');
+        let yeuxmdp = document.getElementById('mot-de-passe');
+        let yeuxconfirmmdp = document.getElementById('confirme-mot-de-passe');
 
-        togglePasswordButton.addEventListener('mouseover', function() {
-            passwordField.type = 'text';
+        yeuxmdp.addEventListener('mouseover', function() {
+            champmdp.type = 'text';
         });
 
-        togglePasswordButton.addEventListener('mouseout', function() {
-            passwordField.type = 'password';
+        yeuxmdp.addEventListener('mouseout', function() {
+            champmdp.type = 'password';
         });
 
-        toggleConfirmPasswordButton.addEventListener('mouseover', function() {
-            confirmPasswordField.type = 'text';
+        yeuxconfirmmdp.addEventListener('mouseover', function() {
+            champconfirmmdpd.type = 'text';
         });
 
-        toggleConfirmPasswordButton.addEventListener('mouseout', function() {
-            confirmPasswordField.type = 'password';
+        yeuxconfirmmdp.addEventListener('mouseout', function() {
+            champconfirmmdpd.type = 'password';
         });
     </script>
 {% endblock %}

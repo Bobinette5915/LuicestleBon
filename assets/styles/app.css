@@ -38,7 +38,7 @@ a {
 }
 
 #concept {
-    background-image: url(/assets/images/fond.jpg);
+    /* background-image: url(/assets/images/fond.jpg); */
     background-repeat: no-repeat;
     background-size: cover;
     margin-top: -1.5rem;
