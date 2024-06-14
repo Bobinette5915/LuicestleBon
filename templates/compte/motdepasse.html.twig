@@ -3,42 +3,40 @@
 {% block title %}Mon Compte{% endblock %}
 
 {% block body %}
-    <div id="concept" class="container-fluid p-3">
-		<div class="row text-center pt-5">
-			<h1>Modifier votre mot de passe</h1>
-		
-		</div>
-		<div id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
+<main id="concept" class="container-fluid p-3">
+    <header class="row text-center pt-5">
+        <h1>Modifier votre mot de passe</h1>
+    </header>
+    <section id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
         {% if notification %}
-
-				<div class='alert alert-info text-center'>
-					{{notification}}</div>
-		{% endif %}
-			{{ form_start(form) }}
-
-			<div class="row">
-				<div class="col-md-6">
-					{{ form_row(form.nom) }}
-				</div>
-				<div class="col-md-6">
-					{{ form_row(form.prenom) }}
-				</div>
-			</div>
-
-			{{ form_row(form.email) }}
-			<div class="row">
-				<div class="col-md-12">
-					{{ form_row(form.old_password) }}
-				</div>
-                <div class="col-md-12">
-					{{ form_row(form.new_password) }}
-				</div>					
-			</div>
-			<div class="col-md-6 mx-auto">
-				{{ form_row(form.submit) }}
-                {{ form_end(form) }}
-			</div>			
-		</div>
-	</div>
-
-{% endblock %} 
+            <div class='alert alert-info text-center'>
+                {{ notification }}
+            </div>
+        {% endif %}
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col-md-6">
+                {{ form_row(form.nom) }}
+            </div>
+            <div class="col-md-6">
+                {{ form_row(form.prenom) }}
+            </div>
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_row(form.old_password) }}
+            </div>
+            <div class="col-md-12">
+                {{ form_row(form.new_password) }}
+            </div>
+        </div>
+        <div class="col-md-6 mx-auto">
+            {{ form_row(form.submit) }}
+            {{ form_end(form) }}
+        </div>
+    </section>
+</main>
+{% endblock %}

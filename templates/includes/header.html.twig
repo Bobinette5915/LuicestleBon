@@ -1,61 +1,56 @@
-
-
 <!-- ======= Header ======= -->
+<header>
 
-<nav class="container-fluid" id="navbar">
-	<div class="row justify-content-center text-center align-items-center">
-	<div class="col-md-2"></div>
-    <div class="col-md-8 "> 
-        <a href="{{ path("app_accueil") }}"><img id='logonav' src="{{asset('assets/images/logo.svg')}}" alt="Logo" width="150px"></a>
-    </div>
-    <div class="col-md-2 " > 
-	{% if app.user %}
-        <a href="{{path('app_cart')}}">Mon Panier
-            <img src="{{asset('assets/images/ajouter-un-panier.png')}}" width="20px" alt="panier"> 
-			
-			{# | {{ NbArticlesPanier }} 
-			 #}
-			
-        </a>
-		{% endif %}
-    </div>
-</div>
-	<div class="row justify-content-between text-center pb-3">
-		<div class="col-md-2 ">
-			<a href="{{path('app_boxs')}}">
-				<h3>Nos Box's</h3>
+	<nav class="navbar navbar-expand-lg" id='navbar'>
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a href="{{ path('app_accueil') }}">
+				<img id='logonav' src="{{ asset('assets/images/logo.svg') }}" alt="Logo" width="150px">
 			</a>
-		</div>
-		<div class="col-md-2 ">
-			<a href="{{ path("app_partenaires") }}">
-				<h3>Nos Partenaires</h3>
-			</a>
-		</div>
-		<div class="col-md-2 ">
-			<a href="{{ path("app_contact") }}">
-				<h3>Une Question ?</h3>
-			</a>
-		</div>
-		<div class="col-md-2 ">
-			{% if app.user %}
-				<a href="{{path('app_compte')}}">
-					<h3>Mon compte</h3>
-				</a>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
 
-				<a href="{{path('app_logout')}}">
-					<h5>Se déconnecter</h5>
-				</a>
-			{% else %}
-				<a href="{{ path("app_connexion") }}">
-					<h3>Se Connecter</h3>
-				</a>
-			{% endif %}
-			{# <div class="col-md-2">
-					<a href="{{path('app_compte')}}"><h3>Mon Panier</h3>
-					<img src="{{asset('assets/images/ajouter-un-panier.png')}}" width="20px" alt="panier"></a>
-					</div> #}
-
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<h5>
+							<a class="nav-link " href="{{ path('app_boxs') }}">Nos Box's</a>
+						</h5>
+					</li>
+					<li class="nav-item">
+						<h5>
+							<a class="nav-link " href="{{ path('app_partenaires') }}">Nos Partenaires</a>
+						</h5>
+					</li>
+					<li class="nav-item">
+						<h5>
+							<a class="nav-link " href="{{ path('app_contact') }}">Une Question ?</a>
+						</h5>
+					</li>
+					
+						{% if app.user %}
+						<li class="nav-item">
+							<a class="nav-link " href="{{ path('app_compte') }}">
+								<h5>Mon compte</h5>
+							</a>
+						</li>
+					{% else %}
+						<li class="nav-item">
+							<a class="nav-link " href="{{ path('app_connexion') }}">
+								<h5>Se connecter</h5>
+							</a>
+						</li>
+					{% endif %}
+				</ul>
+				{% if app.user %}
+					<a class="nav-link " href="{{ path('app_logout') }}">
+						<img src="{{ asset('assets/images/logout.png') }}" width="20px" alt="se-deconnecter" id='imglogout'>
+					</a>
+					<a class="nav-link " href="{{ path('app_cart') }}">
+						<img src="{{ asset('assets/images/paniers.png') }}" width="20px" alt="panier">
+					</a>
+				{% endif %}
+			</div>
 		</div>
-	</div>
-</nav>
-<!-- End Header -->
+	</nav>
+</header>

@@ -1,33 +1,27 @@
 {% extends 'base.html.twig' %}
-{% block title %}
-	nos Boxs
-{% endblock %}
+{% block title %}nos Boxs{% endblock %}
 {% block body %}
 
-	<div id="concept" class="container-fluid p-3">
-		<div class="row text-center pt-5">
-			<h1>Nos Box's</h1>
-		</div>
-		<div class="col-md-12   text-center justify-content-between align-items-center p-3">
-			<div class="row justify-content-center">
-				{% for key,Box in Boxs %}
+    <main id="concept" class="container-fluid p-3">
+        <header class="row text-center pt-5">
+            <h1>Nos Box's</h1>
+        </header>
+        <section class="col-md-12 text-center justify-content-between align-items-center p-3">
+            <div class="row justify-content-center">
+                {% for key, Box in Boxs %}
+                    <article class="rounded-custom bg-light bg-opacity-75 col-md-4 p-4 m-4" {% if key == 0 %} active {% endif %}>
+                        <img class='img-fluid m-4 rounded-circle' src="assets/images/{{Box.illustration}}" alt="Photo de {{Box.nom}}" width="200px">
+                        <h3 class="card-title">{{Box.nom}}</h3>
+                        <small>{{Box.soustitre}}</small>
+                        <p class="card-text">{{Box.description}}</p>
+                        <a href="{{ path('app_ma_box', {'slug' : Box.slug})}}" class="button-74">Personnaliser cette Box</a>
+                        <!-- HTML !-->
 
 
-					<div class="rounded-custom bg-light bg-opacity-75 col-md-4 p-4 m-4" {% if key == 0 %} active {% endif %}>
-						<img class='img-fluid m-4 rounded-circle' src="assets/images/{{Box.illustration}}" alt="Photo de {{Box.nom}}" width="200px">
-						<br>
-						<h3 class="card-title">{{Box.nom}}</h3>
-						<small>{{Box.soustitre}}</small>
-						<br>
-						<p class="card-text">{{Box.description}}</p>
-						<a href="{{ path('app_ma_box', {'slug' : Box.slug})}} " class="btn btn-primary mb-3">Personnaliser cette Box</a>
-					</div>
-
-				{% endfor %}
-
-			</div>
-		</div>
-
-	</div>
+                    </article>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
 
 {% endblock %}

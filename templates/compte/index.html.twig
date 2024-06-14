@@ -3,50 +3,57 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block body %}
-<div id="concept">
-    <h1 class='text-center'>Mon compte</h1>
-            <p class='text-center' style='font-weight: bold; font-size: xx-large;'>Bienvenue dans votre compte
-            {{ app.user.prenom }}.<br>
+<main id="concept">
+    <header>
+        <h1 class='text-center'>Mon compte</h1>
+        <p class='text-center' style='font-weight: bold; font-size: xx-large;'>Bienvenue dans votre compte {{ app.user.prenom }}.</p>
+        <p class='text-center' style='font-weight: bold; font-size: xx-large;'>C'est dans cet espace que vous pouvez gérer vos informations personnelles.</p>
+        <hr>
+    </header>
 
-    <p class='text-center' style='font-weight: bold; font-size: xx-large;'>
-    C'est dans cet espace que vous pouvez gérer vos informations personnelles.</p>
-    <hr>
-    {% if is_granted('ROLE_ADMIN' )%}
-    <p class='text-center m-4'>
-    <button class="btn btn-info col-md-3"><a href="{{ path('admin') }}" class='text-decoration-none '>Vous êtes ADMINISTRATEUR, accéder au backoffice.</a></button>
-    <br>
-    <button class="btn btn-info col-md-3 mt-2"><a href="{{ path('app_preparation') }}" class='text-decoration-none '>Accéder aux commandes à preparer.</a></button></p>
-</p>
-    <hr>
+    {% if is_granted('ROLE_ADMIN') %}
+        <section class='text-center m-4'>
+            <a href="{{ path('admin') }}" class='btn btn-info col-md-3 text-decoration-none mb-2'>Vous êtes ADMINISTRATEUR, accéder au backoffice.</a>
+            <br>
+            <a href="{{ path('app_preparation') }}" class='btn btn-info col-md-3 text-decoration-none mt-2'>Accéder aux commandes à préparer.</a>
+            <hr>
+        </section>
     {% endif %}
-    {% if is_granted('ROLE_PREP' )and not is_granted('ROLE_ADMIN') %}
-        <p class='text-center m-4'>
-    <button class="btn btn-info col-md-3"><a href="{{ path('app_preparation') }}" class='text-decoration-none '>Vous êtes PREPARATEUR, accéder aux commandes à preparer.</a></button></p>
-    <br>
-    {% endif %}
-    {% if is_granted('ROLE_USER' ) %}
-    
-    <div class="row text-center p-3">
 
-        <div class="col-md-4">
-            <div class="account-item text-center rounded-custom bg-light bg-opacity-80">
-                <a href="{{path('app_changementmdp')}}"><img src="{{asset('assets/images/mdp.png')}}" alt="Modifier votre mot de passe"><br>
-                Modifier votre mot de passe.</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="account-item text-center rounded-custom bg-light bg-opacity-80">
-                <a href="{{path('app_adresse')}}"><img src="{{asset('assets/images/emplacement.png')}}" alt="Gérer vos adresses"><br>
-                Gérer vos adresses.</a>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="account-item text-center rounded-custom bg-light bg-opacity-80">
-                <a href="{{path('app_mescommandes')}}"><img src="{{asset('assets/images/boite.png')}}" alt="Mes commandes"><br>
-                Mes commandes.</a>
-            </div>
-        </div>
-    </div>
+    {% if is_granted('ROLE_PREP') and not is_granted('ROLE_ADMIN') %}
+        <section class='text-center m-4'>
+            <a href="{{ path('app_preparation') }}" class='btn btn-info col-md-3 text-decoration-none'>Vous êtes PRÉPARATEUR, accéder aux commandes à préparer.</a>
+        </section>
+        <br>
     {% endif %}
-</div>
+
+    {% if is_granted('ROLE_USER') %}
+        <section class="user-options row text-center p-3">
+            <div class="col-md-4">
+                <div class="account-item text-center rounded-custom bg-light bg-opacity-80 p-3">
+                    <a href="{{ path('app_changementmdp') }}">
+                        <img src="{{ asset('assets/images/mdp.png') }}" alt="Modifier votre mot de passe">
+                        <br>Modifier votre mot de passe
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="account-item text-center rounded-custom bg-light bg-opacity-80 p-3">
+                    <a href="{{ path('app_adresse') }}">
+                        <img src="{{ asset('assets/images/emplacement.png') }}" alt="Gérer vos adresses">
+                        <br>Gérer vos adresses
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="account-item text-center rounded-custom bg-light bg-opacity-80 p-3">
+                    <a href="{{ path('app_mescommandes') }}">
+                        <img src="{{ asset('assets/images/boite.png') }}" alt="Mes commandes">
+                        <br>Mes commandes
+                    </a>
+                </div>
+            </div>
+        </section>
+    {% endif %}
+</main>
 {% endblock %}

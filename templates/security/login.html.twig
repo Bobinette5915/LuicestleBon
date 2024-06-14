@@ -3,14 +3,11 @@
 {% block title %}Connexion!{% endblock %}
 
 {% block body %}
-
-    <div id="concept" class="container-fluid p-3">
-        <div class="row text-center pt-5">
-            <h1>Connectez vous à votre Compte</h1>
-
-        </div>
-        <div id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
-
+    <main class="container-fluid p-3">
+        <header class="row text-center pt-5">
+            <h1>Connectez-vous à votre Compte</h1>
+        </header>
+        <section id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
             <form method="post">
                 {% if error %}
                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -18,54 +15,52 @@
 
                 {% if app.user %}
                     <div class="mb-3">
-                        Vous êtes connecté en tant que
-                        {{ app.user.userIdentifier }},
-                        <a href="{{path('app_logout')}}">se Déconnecter</a>
+                        Vous êtes connecté en tant que {{ app.user.userIdentifier }},
+                        <a href="{{ path('app_logout') }}">se Déconnecter</a>
                     </div>
                 {% endif %}
 
-                <label for="inputEmail">Email</label>
-                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                <br>
-                <label for="inputPassword">Mot de Passe</label>
-                <div class="input-group">
-                    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-outline-secondary" id="togglePassword">
-                            <i class="fas fa-eye"></i>
-                        </button>
+                <div class="mb-3">
+                    <label for="inputEmail">Email</label>
+                    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="inputPassword">Mot de Passe</label>
+                    <div class="input-group">
+                        <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-secondary" id="mot-de-passe">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
                 <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
-                <br>
 
-                <div class="col-md-3 mx-auto">
+                <div class="d-grid col-md-3 mx-auto">
                     <button class="btn btn-lg btn-primary mt-2" type="submit">
                         Me Connecter
                     </button>
                 </div>
-                <p class="text-center mt-3">Pas encore de compte ? <a href="{{path('app_inscription')}}">Inscrivez-vous </a>!</p>
-                <p class="text-center mt-3"><a href="{{path('app_resetmdp')}}">Mot de passe oublié </a>!</p>
-
+                
+                <div class="text-center mt-3">
+                    <p>Pas encore de compte ? <a href="{{ path('app_inscription') }}">Inscrivez-vous</a>!</p>
+                    <p><a href="{{ path('app_resetmdp') }}">Mot de passe oublié</a>!</p>
+                </div>
             </form>
+        </section>
+    </main>
+    <script>
+        let champmdp = document.getElementById('inputPassword');
+        let fieldType = champmdp.getAttribute('type');
 
-        </div> 
-    </div>
-	 <script>
-
-	 let passwordField = document.getElementById('inputPassword');
-     let fieldType = passwordField.getAttribute('type');
-
-        document.getElementById('togglePassword').addEventListener('mouseover', function() {
-            passwordField.setAttribute('type', 'text');
-             });
-		document.getElementById('togglePassword').addEventListener('mouseout', function() {
-            passwordField.setAttribute('type', 'password');
-             });
-
-         
-       
+        document.getElementById('mot-de-passe').addEventListener('mouseover', function () {
+            champmdp.setAttribute('type', 'text');
+        });
+        document.getElementById('mot-de-passe').addEventListener('mouseout', function () {
+            champmdp.setAttribute('type', 'password');
+        });
     </script>
-
 {% endblock %}

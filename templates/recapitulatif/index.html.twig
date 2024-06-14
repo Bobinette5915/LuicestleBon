@@ -1,61 +1,45 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Recapitulaif du panier
-{% endblock %}
+{% block title %}Récapitulatif du panier{% endblock %}
 
 {% block body %}
-	{% if preparation is not empty %}
-		{% set dernier_item = preparation|last %}
+    {% if preparation is not empty %}
+        {% set dernier_item = preparation|last %}
 
-
-		<div id="concept" class="container-fluid p-3 text-center">
-			<div class="row text-center pt-5">
-				<h2>Recapitulatif de la commande</h2>
-			</div>
-			<div id="conceptExplain" class="row col-md-11 mx-auto p-3">
-				<div class="col-md-6">
-
-					<h3 class="m-3">Rappel des choix de livraison</h3>
-					<div>Nous vous livrerons votre brunch le
-						<strong>{{ dernier_item.preparation.infosLivraison.Jours.Jours|date('d/m') }}</strong>
-						aux alentours de
-					<strong>{{ dernier_item.preparation.infosLivraison.Heures.HeuresLivrables|date('H:i') }}</strong>
-						<br>
-						votre adresse est
-						<strong>{{dernier_item.preparation.infosLivraison.Adresse}}</strong>
-						<br>
-						{# Votre Numero de Commande est le
-						<strong>{{dernier_item.preparation.idCommande}}</strong> #}
-					</div>
-
-				</div>
-				<div class="col-md-6">
-
-					<h3 class="m-3">Vous avez commander
-					</h3>
-					{% for box in dernier_item.preparation.cart %}
-						<li>{{ box.id.box.nom }}
-							personalisée
-						</li>
-						<br>
-
-					{% endfor %}                       
+        <main id="concept" class="container-fluid p-3 text-center">
+            <header class="row text-center pt-5">
+                <h2>Récapitulatif de la commande</h2>
+            </header>
+            <section id="conceptExplain" class="row col-md-11 mx-auto p-3">
+                <div class="col-md-6">
+                    <h3 class="m-3">Rappel des choix de livraison</h3>
+                    <p>Nous vous livrerons votre brunch le
+                        <strong>{{ dernier_item.preparation.infosLivraison.Jours.Jours|date('d/m') }}</strong>
+                        aux alentours de
+                        <strong>{{ dernier_item.preparation.infosLivraison.Heures.HeuresLivrables|date('H:i') }}</strong>
+                        <br>votre adresse est
+                        <strong>{{ dernier_item.preparation.infosLivraison.Adresse }}</strong>
+                        <br>
+                        {# Votre Numero de Commande est le
+                        <strong>{{ dernier_item.preparation.idCommande }}</strong> #}
+                    </p>
+                </div>
+                <div class="col-md-6">
+                    <h3 class="m-3">Vous avez commandé</h3>
+                    <ul>
+                        {% for box in dernier_item.preparation.cart %}
+                            <li>{{ box.id.box.nom }} personnalisée</li>
+                        {% endfor %}
+                    </ul>
                     
-					{{ form_start(form) }}			
-			
-			{{ form_widget(form.prix, {'value': dernier_item.preparation.prix}) }}
-			{{ form_widget(form.date, {'value': date|date('d F Y')}) }}
-			{{ form_widget(form.idCommande, {'value': dernier_item.preparation.idCommande}) }}
-			{{ form_widget(form.save) }}
-		{{ form_end(form) }}
-
-					
-				</div>
-
-			</div>
-		</div> 
-	
-		
-	{% endif %}
-	<div></div>
+                    {{ form_start(form) }}
+                        {{ form_widget(form.prix, {'value': dernier_item.preparation.prix}) }}
+                        {{ form_widget(form.date, {'value': date|date('d F Y')}) }}
+                        {{ form_widget(form.idCommande, {'value': dernier_item.preparation.idCommande}) }}
+                        {{ form_widget(form.save) }}
+                    {{ form_end(form) }}
+                </div>
+            </section>
+        </main>
+    {% endif %}
 {% endblock %}

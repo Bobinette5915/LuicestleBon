@@ -1,85 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Inscription{% endblock %}
+{% block title %}Inscription
+{% endblock %}
 
 {% block body %}
-    <div id="concept" class="container-fluid p-3">
-        <div class="row text-center pt-5">
-            <h1>Créer votre Compte</h1>
-        </div>
-        <div id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
-            {% if notification %}
-                <div class='alert alert-info text-center'>
-                    {{ notification | raw }}
-                </div>
-            {% endif %}
-            {{ form_start(form) }}
+	<main id="concept" class="container-fluid p-3">
+		<header class="row text-center pt-5">
+			<h1>Créer votre Compte</h1>
+		</header>
+		<section id="conceptExplain" class="col-md-6 mx-auto mb-4 p-5">
+			{% if notification %}
+				<div class='alert alert-info text-center'>
+					{{ notification | raw }}
+				</div>
+			{% endif %}
+			{{ form_start(form) }}
 
-            <div class="row">
-                <div class="col-md-6">
-                    {{ form_row(form.nom) }}
-                </div>
-                <div class="col-md-6">
-                    {{ form_row(form.prenom) }}
-                </div>
-            </div>
-            {{ form_row(form.tel) }}
-            {{ form_row(form.email) }}
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="inputPassword">Mot de Passe</label>
-                    <div class="input-group">
-                        {{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'autocomplete': 'new-password'}}) }}
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-outline-secondary" id="togglePassword" style="border: none; background: none;">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <label for="inputConfirmPassword">Confirmez le Mot de Passe</label>
-                    <div class="input-group">
-                        {{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'autocomplete': 'new-password'}}) }}
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-outline-secondary" id="toggleConfirmPassword" style="border: none; background: none;">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+			<div class="row">
+				<div class="col-md-6">
+					{{ form_row(form.nom) }}
+				</div>
+				<div class="col-md-6">
+					{{ form_row(form.prenom) }}
+				</div>
+			</div>
+			<div class="col-md-12">
+				{{ form_row(form.tel) }}
+			</div>
+			<div class="col-md-12">
+				{{ form_row(form.email) }}
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label for="inputPassword">Mot de Passe</label>
+					<div class="input-group">
+						{{ form_widget(form.password.first, {'attr': {'class': 'form-control', 'autocomplete': 'new-password'}}) }}
+						<div class="input-group-append">
+							<button type="button" class="btn btn-outline-secondary" id="mot-de-passe" style="border: none; background: none;">
+								<i class="fas fa-eye"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-12">
+					<label for="inputConfirmPassword">Confirmez le Mot de Passe</label>
+					<div class="input-group">
+						{{ form_widget(form.password.second, {'attr': {'class': 'form-control', 'autocomplete': 'new-password'}}) }}
+						<div class="input-group-append">
+							<button type="button" class="btn btn-outline-secondary" id="confirme-mot-de-passe" style="border: none; background: none;">
+								<i class="fas fa-eye"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            <div class="col-md-6 mx-auto">
-                {{ form_row(form.submit) }}
-            </div>
-            <p class="text-center">Déjà un compte ? <a href="{{ path('app_connexion') }}">Connectez-vous</a> pour savourer de délicieux Brunchs !</p>
-            {{ form_end(form) }}
-        </div>
-    </div>
+			<div class="col-md-6 mx-auto">
+				{{ form_row(form.submit) }}
+			</div>
+			<p class="text-center">Déjà un compte ?
+				<a href="{{ path('app_connexion') }}">Connectez-vous</a>
+				pour savourer de délicieux Brunchs !</p>
+			{{ form_end(form) }}
+		</section>
+	</main>
 
-    <script>
-        let passwordField = document.getElementById('inscription_password_first');
-        let confirmPasswordField = document.getElementById('inscription_password_second');
-        let togglePasswordButton = document.getElementById('togglePassword');
-        let toggleConfirmPasswordButton = document.getElementById('toggleConfirmPassword');
+	<script>
+		let champmdp = document.getElementById('inscription_password_first');
+let champconfirmmdpd = document.getElementById('inscription_password_second');
+let yeuxmdp = document.getElementById('mot-de-passe');
+let yeuxconfirmmdp = document.getElementById('confirme-mot-de-passe');
 
-        togglePasswordButton.addEventListener('mouseover', function() {
-            passwordField.type = 'text';
-        });
+yeuxmdp.addEventListener('mouseover', function () {
+champmdp.type = 'text';
+});
 
-        togglePasswordButton.addEventListener('mouseout', function() {
-            passwordField.type = 'password';
-        });
+yeuxmdp.addEventListener('mouseout', function () {
+champmdp.type = 'password';
+});
 
-        toggleConfirmPasswordButton.addEventListener('mouseover', function() {
-            confirmPasswordField.type = 'text';
-        });
+yeuxconfirmmdp.addEventListener('mouseover', function () {
+champconfirmmdpd.type = 'text';
+});
 
-        toggleConfirmPasswordButton.addEventListener('mouseout', function() {
-            confirmPasswordField.type = 'password';
-        });
-    </script>
+yeuxconfirmmdp.addEventListener('mouseout', function () {
+champconfirmmdpd.type = 'password';
+});
+	</script>
 {% endblock %}

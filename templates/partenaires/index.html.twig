@@ -1,31 +1,26 @@
 {% extends 'base.html.twig' %}
 {% block title %}
-    Bos Partenaires
-	{% endblock %}
+    Nos Partenaires
+{% endblock %}
 {% block body %}
-	
-	<div id="concept" class="container-fluid p-3">
-		<div class="row text-center pt-5">
-			<h1>Nos Partenaires</h1>
-		</div>
-        <div class="col-md-12   text-center justify-content-between align-items-center p-3">
+    <main id="concept" class="container-fluid p-3">
+        <header class="row text-center pt-5">
+            <h1>Nos Partenaires</h1>
+        </header>
+        <section class="col-md-12 text-center justify-content-between align-items-center p-3">
             <div class="row justify-content-center">
-			{% for key,Partenaire in Partenaires %}
-
-        
-                <div  class="rounded-custom bg-light bg-opacity-75 col-md-4 p-4 m-4" {% if key == 0 %} active {% endif %}>
-                    <img class='img-fluid m-4 rounded' src="assets/images/{{Partenaire.illustration}}" alt="Logo"  width="250px"> <br>
-                    <h3 class="card-title">{{Partenaire.entreprise}}</h3> 
-                    <p class="card-text">{{Partenaire.adresse}}</p>
-                    <p class="card-text">{{Partenaire.email}}</p>
-                    <p class="card-text">{{Partenaire.telephone}}</p>
-                    <p class="card-text">{{Partenaire.description}}</p>
-                    <a href="{{Partenaire.SiteWeb}}" class="btn btn-primary mb-3">Visiter le site</a>
-                </div>
-            
-			{% endfor %}
+                {% for key, Partenaire in Partenaires %}
+                    <article class="rounded-custom bg-light bg-opacity-75 col-md-4 p-4 m-4" {% if key == 0 %} active {% endif %}>
+                        <img class='img-fluid m-4 rounded' src="assets/images/{{Partenaire.illustration}}" alt="Logo" width="250px">
+                        <h3 class="card-title">{{Partenaire.entreprise}}</h3>
+                        <p class="card-text">{{Partenaire.adresse}}</p>
+                        <p class="card-text">{{Partenaire.email}}</p>
+                        <p class="card-text">{{Partenaire.telephone}}</p>
+                        <p class="card-text">{{Partenaire.description}}</p>
+                        <a href="{{Partenaire.SiteWeb}}" class="btn btn-primary mb-3">Visiter le site</a>
+                    </article>
+                {% endfor %}
             </div>
-		</div>
-	</div>
-
+        </section>
+    </main>
 {% endblock %}

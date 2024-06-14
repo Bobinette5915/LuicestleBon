@@ -38,12 +38,14 @@ class AccueilController extends AbstractController
 
         // Sélectionne les  premiers partenaires
         $partenairesAleatoires = array_slice($partenaires, 0, 3);
-        $boxAleatoires = array_slice($boxs, 0, 4);
+        $partenaireAleatoire = array_slice($partenaires, 0, 1);
+        $boxAleatoires = array_slice($boxs, 0, 1);
 
         return $this->render('accueil/index.html.twig', [
             'boxs' => $boxs,
             'boxAleatoires' => $boxAleatoires,
             'partenairesAleatoires' => $partenairesAleatoires,
+            'partenaireAleatoire' => $partenaireAleatoire,
             'NbArticlesPanier' => $lignePanier,
         ]);
     }

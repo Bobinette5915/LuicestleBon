@@ -23,7 +23,7 @@
         }
         .logo img {
             max-width: 150px;
-            max-height: auto;
+            height: auto;
         }
         .title {
             text-align: center;
@@ -53,11 +53,12 @@
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="logo">
+<main class="container">
+    <header class="logo">
         <img src="data:image/svg+xml;base64,{{ base64_image }}" alt="logo">
-    </div>
-    <div class="invoice-details">
+    </header>
+    
+    <section class="invoice-details">
         <p>Les brunchs de Bob et Tintin</p>
         <p>1 Rue Blaise Pascal <br> 62219 Longuenesse</p>
         <p><strong>N° de Siret :</strong> 12345678901234</p>
@@ -67,8 +68,9 @@
         <p><strong>Commandé le :</strong> {{ details.commande.dateCommande | date('d-m-Y') }}</p>
         <p><strong>Livré le :</strong> {{ details.commande.dateLivraison | date('d-m-Y') }} <strong>à</strong> {{ details.commande.heureLivraison | date('H:i') }}</p>
         <p><strong>A l'adresse :</strong> {{ details.commande.AdresseLivraison }}</p>
-    </div>
-    <div class="items">
+    </section>
+    
+    <section class="items">
         <h3>Comprenant :</h3>
         <table>
             <thead>
@@ -95,12 +97,13 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
-    <div class="prix">
+    </section>
+    
+    <footer class="prix">
         <p><strong>Prix HT :</strong> {{ (details.commande.prix / 100) * 0.9 | number_format(2, '.', ' ') }} €</p>
         <p><strong>TVA :</strong> 10%</p>
         <p><strong>Prix Total :</strong> {{ details.commande.prix / 100 | number_format(2, '.', ' ') }} €</p>
-    </div>
-</div>
+    </footer>
+</main>
 </body>
 </html>

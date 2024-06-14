@@ -3,96 +3,70 @@
 {% block title %}Panier{% endblock %}
 
 {% block body %}
+    <section id="concept" class="container-fluid p-3 text-center">
+        <header class="row text-center pt-5">
+            <h1>Mon Panier</h1>
+        </header>
 
-<div id="concept" class="container-fluid p-3 text-center">
-<div class="row text-center pt-5">
-			<h1>Mon Panier</h1>
-		</div>
+        {% if cart|length > 0 %}
+            <table class="table mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Box</th>
+                        <th scope="col">Ingrédients supplémentaires</th>
+                        <th scope="col">Prix Total</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% set total = 0 %}
+                    {% set quantityTotal = 0 %}
+                    {% for product in cart %}
+                        <tr>
+                            <td class="align-middle"><img src="/assets/images/{{ product.id.box.illustration }}" alt="{{ product.id.box.nom }}" height='75px' class="rounded"></td>
+                            <td class="align-middle" scope="row">
+                                <strong>{{ product.id.box.nom }}</strong><br>
+                            </td>
+                            <td>
+                                {% if product.id.formData.ingredient1 %}
+                                    <small>{{ product.id.formData.ingredient1 }}</small><br>
+                                {% endif %}
+                                {% if product.id.formData.ingredient2 %}
+                                    <small>{{ product.id.formData.ingredient2 }}</small><br>
+                                {% endif %}
+                                {% if product.id.formData.ingredient3 %}
+                                    <small>{{ product.id.formData.ingredient3 }}</small><br>
+                                {% endif %}
+                                {% if product.id.formData.ingredient4 %}
+                                    <small>{{ product.id.formData.ingredient4 }}</small><br>
+                                {% endif %}
+                            </td>
+                            <td class="align-middle">{{ (product.id.box.prix / 100) | number_format(2) }} €</td>
+                            <td class="align-middle">
+                                <a href="{{ path('app_delete_to_cart', {'id': product.id.id}) }}">
+                                    <img src="{{ asset('assets/images/poubelle.svg') }}" height="20px" alt="supprimer mon produit">
+                                </a>
+                            </td>
+                        </tr>
+                        {% set quantityTotal = quantityTotal + 1 %}
+                        {% set total = total + product.id.box.prix %}
+                    {% endfor %}
+                </tbody>
+            </table>
 
+            <div class="text-end mb-5 mr-3">
+                <b>Nombre de boxs :</b> {{ quantityTotal }}<br>
+                <b>Total de mon Panier :</b> {{ (total / 100) | number_format(2) }} €<br>
+            </div>
 
-
-	{% if cart|length >0 %}
-
-	<table class="table  mb-5 ">
-		<thead>
-			<tr>
-				<th scope="col">Image</th>
-				<th scope="col">Box</th>
-				<th scope="col">Ingredients suplementaires</th>
-				<th scope="col">Prix Total</th>
-				<th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-			{% set total = null %}
-			{% set QuantityTotal = null %}
-			{% for product in cart %}
-				<tr>
-					<td class="align-middle"><img src="/assets/images/{{product.id.box.illustration}}" alt="{{product.id.box.nom}}" height='75px' class="rounded"></td>
-					<td class="align-middle" scope="row">
-						<strong>{{product.id.box.nom}}
-						</strong><br>
-						
-					</td>
-					
-					<td>
-						{% if product.id.formData.ingredient1 %}
-							<small>{{product.id.formData.ingredient1}}</small> <br> 
-						{% endif %} 
-						{% if product.id.formData.ingredient2 %}
-							<small>{{product.id.formData.ingredient2}}</small> <br> 
-						{% endif %}
-						{% if product.id.formData.ingredient3 %}
-							<small>{{product.id.formData.ingredient3}}</small> <br> 
-						{% endif %}
-						{% if product.id.formData.ingredient4 %}
-							<small>{{product.id.formData.ingredient4}}</small> <br> 
-						{% endif %}
-						
-
-					</td>
-					
-					
-					<td class="align-middle">
-                    {{(product.id.box.prix / 100) |number_format('2')}}
-                    
-						€</td>
-					<td class="align-middle">
-						<a href="{{ path('app_delete_to_cart',{'id' : product.id.id}) }}">
-							<img src="{{ asset('assets/images/poubelle.svg') }}" height="20px" alt="supprimer mon produit">
-						</a>
-					</td>
-				</tr> 
-				{% set QuantityTotal = QuantityTotal + 1 %}
-				{% set total = total + (product.id.box.prix ) %} 
-			{% endfor %}
-		</tbody>
-	</table>
-
-	<div class="text-end mb-5 mr-3">
-		<b>Nombre de boxs :
-		</b>
-		{{QuantityTotal }}
-		<br>
-		<b>Total de mon Panier :
-		</b>
-		{{(total / 100) |number_format('2')}}
-		€<br>
-
-	</div>
-	<div class=" row justify-content-evenly text-center ">
-	<div class="col-md-3"><a href="{{path('app_remove_cart')}}" class="btn btn-danger btn-lg">vider le panier</a></div>
-	<div class="col-md-3"><a href="{{path('app_creneaux')}}" class="btn btn-success btn-lg" href="">Choisir mon créneau de Livraison</a></div>
-	
-	
-	</div>
-</div>
-
-
-
-	{% else %}
-    <hr>
-	
-    <p>Votre panier est vide</p>
-{% endif %}
+            <div class="row justify-content-evenly text-center">
+                <div class="col-md-3"><a href="{{ path('app_remove_cart') }}" class="btn btn-danger btn-lg">Vider le panier</a></div>
+                <div class="col-md-3"><a href="{{ path('app_creneaux') }}" class="btn btn-success btn-lg">Choisir mon créneau de Livraison</a></div>
+            </div>
+        {% else %}
+            <hr>
+            <p>Votre panier est vide</p>
+        {% endif %}
+    </section>
 {% endblock %}
